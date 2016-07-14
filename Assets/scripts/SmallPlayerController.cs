@@ -90,13 +90,18 @@ public class SmallPlayerController : NetworkBehaviour {
             }
             else
             {
-                Animator anim = NS.GetComponent<Animator>();
-                AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
-                if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.megni"))
+                string RegexStr = @"^Lv2[\w\W]*";
+                if (Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr))
                 {
-                    anim.SetBool("NS", false);
+                    Animator anim = NS.GetComponent<Animator>();
+                    AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
+                    if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.megni"))
+                    {
+                        anim.SetBool("NS", false);
 
+                    }
                 }
+               
                 upvel = player.velocity.y;
                 if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
