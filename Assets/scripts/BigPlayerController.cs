@@ -3,8 +3,10 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class BigPlayerController : MonoBehaviour
+public class BigPlayerController : NetworkBehaviour
 {
 
     public Rigidbody2D player;
@@ -21,6 +23,15 @@ public class BigPlayerController : MonoBehaviour
     void Start()
     {
         canControl = true;
+        if (MainMenuButton.mode)
+        {
+            if (!isLocalPlayer)
+            {
+                canControl = false;
+
+            }
+
+        }
         player = GetComponent<Rigidbody2D>();
         velocity = 6.5f;
         upvel = 0;
@@ -35,7 +46,7 @@ public class BigPlayerController : MonoBehaviour
         if (canControl)
         {
             upvel = player.velocity.y;
-            if ((MagnetismController.trick && !MainMenuButton.mode) || (gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode))
+            if (MagnetismController.trick /*&& !MainMenuButton.mode) || (gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode)*/)
             {
                 Animator anim = NS.GetComponent<Animator>();
                 AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -58,22 +69,22 @@ public class BigPlayerController : MonoBehaviour
                 }
             }
 
-             if ((Input.GetKey("d") || (CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") > 0.4)) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
+             if ((Input.GetKey("d") || (CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") > 0.5)) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
                  {
                  player.velocity = new Vector2(2, upvel);
              }
 
-             else if (t == 0 && (Input.GetKey("d") || (CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") > 0.4)) && this.GetComponent<CollisionController>().isTouchingFloor == 0)
+             else if (t == 0 && (Input.GetKey("d") || (CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") > 0.5)) && this.GetComponent<CollisionController>().isTouchingFloor == 0)
              {
                  player.AddForce(new Vector2(100 - 10 * 9 * l, 0));
                  t = 1;
              }
-             else if (t == 0 && (Input.GetKey("a") || CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") < -0.4) && this.GetComponent<CollisionController>().isTouchingFloor == 0)
+             else if (t == 0 && (Input.GetKey("a") || CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") < -0.5) && this.GetComponent<CollisionController>().isTouchingFloor == 0)
              {
                  player.AddForce(new Vector2(-100 + 10 * 9 * l, 0));
                  t = 1;
              }
-             else if ((Input.GetKey("a") || CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") < -0.4) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
+             else if ((Input.GetKey("a") || CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") < -0.5) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
                  player.velocity = new Vector2(-2, upvel);
 
              }

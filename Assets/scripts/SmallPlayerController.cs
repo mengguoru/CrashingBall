@@ -3,8 +3,9 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.Networking;
 
-public class SmallPlayerController : MonoBehaviour {
+public class SmallPlayerController : NetworkBehaviour {
 
     public Rigidbody2D player;
     public GameObject BigPlayer;
@@ -23,6 +24,15 @@ public class SmallPlayerController : MonoBehaviour {
     void Start()
     {
         canControl = true;
+        if (MainMenuButton.mode)
+        {
+            if (!isLocalPlayer)
+            {
+                canControl = false;
+
+            }
+            
+        }
         player = GetComponent<Rigidbody2D>();
 
         velocity = 6;
@@ -38,7 +48,7 @@ public class SmallPlayerController : MonoBehaviour {
     {
         // Debug.Log(MagnetismController.trick);
         if (canControl) {
-            if ((MagnetismController.trick && !MainMenuButton.mode)||(gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode) && !this.gameObject.GetComponent<CollisionController>().isInPortal)
+            if (MagnetismController.trick/* && !MainMenuButton.mode)||(gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode) */&& !this.gameObject.GetComponent<CollisionController>().isInPortal)
             {
                 Animator anim = NS.GetComponent<Animator>();
                 AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);

@@ -34,20 +34,7 @@ public class MagnetismController : NetworkBehaviour {
 	
 	
 	void Update () {
-        string RegexStr1 = @"^BigPlayer[\w\W]*";
-        string RegexStr2 = @"^SmallPlayer[\w\W]*";
-        if (!isLocalPlayer && MainMenuButton.mode)
-        {
-            if (Regex.IsMatch(gameObject.name, RegexStr1))
-            {
-                gameObject.GetComponent<BigPlayerController>().canControl = false;
-            }
-            else if(Regex.IsMatch(gameObject.name, RegexStr2))
-            {
-                gameObject.GetComponent<SmallPlayerController>().canControl = false;
-            }
-
-        }
+        
         if (magnetism != 0)
         {
             for (int i = 0; i < ball.Length; i++)
