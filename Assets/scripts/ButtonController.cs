@@ -13,7 +13,8 @@ public class ButtonController : MonoBehaviour {
     List<string> arr = new List<string>();
     public Sprite[] locked;
     public Sprite[] unlocked;
-    public GameObject[] button; 
+    public GameObject[] button;
+    public static string conLevelName;
 
    /* void LoadXml()
     {
@@ -67,7 +68,7 @@ public class ButtonController : MonoBehaviour {
     void Start()
     {
         //LoadXml();
-        arr = LoadFile(Application.persistentDataPath, "data1.txt");
+        /*arr = LoadFile(Application.persistentDataPath, "data1.txt");
         for(int i = 0; i < arr.Count; i++)
         {
             Debug.Log("lv"+arr[i]);
@@ -83,7 +84,7 @@ public class ButtonController : MonoBehaviour {
                 button[i].GetComponent<Button>().image.sprite = unlocked[i];
             else
                 button[i].GetComponent<Button>().image.sprite = locked[i];
-        }
+        }*/
     }
 
     public void OnBackBtnClick() {
@@ -133,91 +134,22 @@ public class ButtonController : MonoBehaviour {
 
     public void OnBackConBtnClick()
     {
-        SceneManager.LoadScene("NetworkConnection");
+        SceneManager.LoadScene("ModeChoose");
     }
 
-    public void OnConLevelChooseBtnClick(GameObject obj)
+    /*public void OnConLevelChooseBtnClick(GameObject obj)
     {
         string levelName = obj.name;
         int chapter = levelName[2] - 48;//1 2 3
         int level = levelName[4] - 48;//1 2 3 ...9
         int index = (chapter - 1) * 9 + level - 1;
-        if (levelStatus[index] == 0)
-        {
-            MyNetwork netManager = GameObject.Find("Network Manager").GetComponent<MyNetwork>();
-            netManager.onlineScene = levelName;
-            if(levelName == "Lv1.1" || levelName == "Lv1.2" || levelName == "Lv1.5" || levelName == "Lv1.8")
-            {
-                if (netManager.numPlayers == 0)
-                {
-                    netManager.playerPrefab = netManager.BigPlayer[0];
-                }
-                else if (netManager.numPlayers == 1)
-                {
-                    netManager.playerPrefab = netManager.SmallPlayer[0];
-                }
-            }
-            else if(levelName == "Lv1.3")
-            {
-                if (netManager.numPlayers == 0)
-                {
-                    netManager.playerPrefab = netManager.BigPlayer[1];
-                }
-                else if (netManager.numPlayers == 1)
-                {
-                    netManager.playerPrefab = netManager.SmallPlayer[1];
-                }
-            }
-            else if (levelName == "Lv1.4")
-            {
-                if (netManager.numPlayers == 0)
-                {
-                    netManager.playerPrefab = netManager.BigPlayer[2];
-                }
-                else if (netManager.numPlayers == 1)
-                {
-                    netManager.playerPrefab = netManager.SmallPlayer[2];
-                }
-            }
-            else if (levelName == "Lv1.6")
-            {
-                if (netManager.numPlayers == 0)
-                {
-                    netManager.playerPrefab = netManager.BigPlayer[3];
-                }
-                else if (netManager.numPlayers == 1)
-                {
-                    netManager.playerPrefab = netManager.SmallPlayer[3];
-                }
-            }
-            else if (levelName == "Lv1.7")
-            {
-                if (netManager.numPlayers == 0)
-                {
-                    netManager.playerPrefab = netManager.BigPlayer[4];
-                }
-                else if (netManager.numPlayers == 1)
-                {
-                    netManager.playerPrefab = netManager.SmallPlayer[4];
-                }
-            }
-            else if (levelName == "Lv1.9")
-            {
-                if (netManager.numPlayers == 0)
-                {
-                    netManager.playerPrefab = netManager.BigPlayer[5];
-                }
-                else if (netManager.numPlayers == 1)
-                {
-                    netManager.playerPrefab = netManager.SmallPlayer[5];
-                }
-            }
-            //SceneManager.LoadScene("CutScene");
-            netManager.networkPort = 7777;
-            netManager.StartHost();
-        }
-        else
-            Debug.Log("还没通关哟");
-    }
+        // if (levelStatus[index] == 0)
+        // {
+        conLevelName = obj.name;
+        SceneManager.LoadScene("NetworkConnection");
+       // }
+       // else
+            //Debug.Log("还没通关哟");
+    }*/
 
 }

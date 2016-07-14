@@ -320,8 +320,8 @@ public class CollisionController : MonoBehaviour {
             if (coll.gameObject.name == Trigger[i].name)
             {
                 Debug.Log("stay");
-                TriggerDoor[i].GetComponent<BoxCollider2D>().isTrigger = true;
-                Animator anim = TriggerDoor[i].GetComponent<Animator>();
+                GameObject.Find(TriggerDoor[i].name).GetComponent<BoxCollider2D>().isTrigger = true;
+                Animator anim = GameObject.Find(TriggerDoor[i].name).GetComponent<Animator>();
                 AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
                 if(stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Idle"))
                 {
@@ -366,8 +366,8 @@ public class CollisionController : MonoBehaviour {
         {
             if (coll.gameObject.name == Trigger[i].name)
             {
-                TriggerDoor[i].GetComponent<BoxCollider2D>().isTrigger = false;
-                Animator anim = TriggerDoor[i].GetComponent<Animator>();
+                GameObject.Find(TriggerDoor[i].name).GetComponent<BoxCollider2D>().isTrigger = false;
+                Animator anim = GameObject.Find(TriggerDoor[i].name).GetComponent<Animator>();
                 AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
                 if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.DoorBreak"))
                 {

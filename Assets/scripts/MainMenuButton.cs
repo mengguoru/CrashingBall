@@ -73,7 +73,7 @@ public class MainMenuButton : MonoBehaviour {
 
     public void OnConModeBtnClick()
     {
-        SceneManager.LoadScene("NetworkConnection");
+        SceneManager.LoadScene("ConChapter1");
     }
 
     public void OnTrialBtnClick()
