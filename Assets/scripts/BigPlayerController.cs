@@ -33,7 +33,7 @@ public class BigPlayerController : NetworkBehaviour
 
         }
         player = GetComponent<Rigidbody2D>();
-        velocity = 6.5f;
+        velocity = 7.5f;
         upvel = 0;
         if (SceneManager.GetActiveScene().name == "Lv1.5")
             l = 1;
