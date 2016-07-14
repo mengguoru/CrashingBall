@@ -39,7 +39,7 @@ public class MagnetismController : NetworkBehaviour {
         {
             for (int i = 0; i < ball.Length; i++)
             {
-                Debug.Log(ball[i].name);
+                //Debug.Log(ball[i].name);
                 if (GameObject.Find(ball[i].name).GetComponent<MagnetismController>().magnetism != 0)
                 {
                     disVector[i] = GameObject.Find(ball[i].name).transform.position - this.gameObject.transform.position;

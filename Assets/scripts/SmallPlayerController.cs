@@ -47,26 +47,27 @@ public class SmallPlayerController : NetworkBehaviour {
     void Update()
     {
         // Debug.Log(MagnetismController.trick);
+        Animator anim = NS.GetComponent<Animator>();
+        AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
         if (canControl) {
             if (MagnetismController.trick/* && !MainMenuButton.mode)||(gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode) */&& !this.gameObject.GetComponent<CollisionController>().isInPortal)
             {
-                Animator anim = NS.GetComponent<Animator>();
-                AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
+              
                 this.gameObject.transform.position = GameObject.Find(BigPlayer.name).transform.position + new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle), 0);
-                if (Input.GetKey(KeyCode.UpArrow))
+                if (Input.GetKey(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.5)
                 {
                     radius += 0.01f;
                 }
-                else if (Input.GetKey(KeyCode.DownArrow) && radius <= maxRadius)
+                else if (Input.GetKey(KeyCode.DownArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") < -0.5 && radius <= maxRadius)
                 {
                     radius -= 0.01f;
                 }
 
-                if (Input.GetKey(KeyCode.LeftArrow))
+                if (Input.GetKey(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.4f)
                 {
                     angle += (speed * Time.deltaTime);
                 }
-                else if (Input.GetKey(KeyCode.RightArrow))
+                else if (Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4))
                 {
                     angle -= (speed * Time.deltaTime);
                 }
@@ -74,11 +75,10 @@ public class SmallPlayerController : NetworkBehaviour {
                 if (radius > maxRadius)
                 {
                     MagnetismController.trick = false;
-
-                    if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.megni"))
+                    if (MainMenuButton.mode)
                     {
-                        anim.SetBool("NS", false);
-
+                        if(isServer)
+                            GetComponent<MagnetismController>().contrick = false;
                     }
                 }
 
@@ -90,8 +90,13 @@ public class SmallPlayerController : NetworkBehaviour {
             }
             else
             {
+                if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.megni"))
+                {
+                    anim.SetBool("NS", false);
+
+                }
                 upvel = player.velocity.y;
-                if ((Input.GetKeyDown(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4)) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
                     player.velocity = new Vector2(2, upvel);
                 }

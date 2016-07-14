@@ -19,6 +19,7 @@ public class BigPlayerController : NetworkBehaviour
     int t = 0;
     public bool canControl;
     int times = 0;
+    public Button btnCancel;
 
     void Start()
     {
@@ -55,12 +56,17 @@ public class BigPlayerController : NetworkBehaviour
                     anim.SetBool("NS", true);
 
                 }
+                btnCancel.GetComponent<Button>().onClick.AddListener(OnCancelButtonClick);
+                
                 if (Input.GetKeyDown("s"))
                 {
-                    if (!MainMenuButton.mode)
-                        MagnetismController.trick = false;
-                    else
-                        gameObject.GetComponent<MagnetismController>().contrick = false;
+                    MagnetismController.trick = false;
+                    if (MainMenuButton.mode)
+                    {
+                        if(isServer)
+                            GetComponent<MagnetismController>().contrick = false;
+                    }
+                      
                     if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Bigmegni"))
                     {
                         anim.SetBool("NS", false);
@@ -134,7 +140,24 @@ public class BigPlayerController : NetworkBehaviour
         }*/
         if (t == 1 && GetComponent<CollisionController>().isTouchingFloor == 1) { t = 0; }
         }
+
+   void OnCancelButtonClick()
+    {
+        MagnetismController.trick = false;
+        if (MainMenuButton.mode)
+        {
+            if (isServer)
+                GetComponent<MagnetismController>().contrick = false;
+        }
+        Animator anim = NS.GetComponent<Animator>();
+        AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
+        if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Bigmegni"))
+        {
+            anim.SetBool("NS", false);
+            Debug.Log("cancel");
+        }
     }
+}
 
 
 
