@@ -3,7 +3,7 @@ using System.Collections;
 
 public class VolumnController : MonoBehaviour {
 
-    public AudioSource bgm;
+    //public AudioSource bgm;
     public GameObject[] sound;
     public static float[] volumn;//第一个是背景音乐 第二个是音效
 
@@ -11,7 +11,7 @@ public class VolumnController : MonoBehaviour {
     void Update () {
         if(MainMenuButton.hadRegulateSlider != 0)
         {
-            bgm.volume = volumn[0];
+            GameObject.Find("AudioManager").GetComponent<AudioSource>().volume = volumn[0];
             if (sound.Length > 0)
             {
                 for (int i = 0; i < sound.Length; i++)
@@ -23,7 +23,7 @@ public class VolumnController : MonoBehaviour {
         }
         else
         {
-            bgm.volume =0.5f;
+            GameObject.Find("AudioManager").GetComponent<AudioSource>().volume =0.5f;
             if (sound.Length > 0)
             {
                 for (int i = 0; i < sound.Length; i++)

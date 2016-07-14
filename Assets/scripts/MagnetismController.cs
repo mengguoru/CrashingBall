@@ -52,6 +52,9 @@ public class MagnetismController : NetworkBehaviour {
             }
         }
 
+        if (MainMenuButton.mode)
+            trick = contrick;
+
 	}
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -63,7 +66,7 @@ public class MagnetismController : NetworkBehaviour {
         string RegexStr5 = @"^SmallPlayer[\w\W]*";
 
 
-        if ((!trick && !MainMenuButton.mode) || (!contrick && MainMenuButton.mode))
+        if (!trick)
         {
             //与磁极碰撞
             if (Regex.IsMatch(coll.gameObject.name, RegexStr1) && magnetism == 0)
@@ -106,9 +109,8 @@ public class MagnetismController : NetworkBehaviour {
                     coll.gameObject.GetComponent<MagnetismController>().magnetism = 0;
                     if ((Regex.IsMatch(coll.gameObject.name, RegexStr4) && Regex.IsMatch(this.gameObject.name, RegexStr5)) || (Regex.IsMatch(coll.gameObject.name, RegexStr5) && Regex.IsMatch(this.gameObject.name, RegexStr4)))
                     {
-                        if (!MainMenuButton.mode)
-                            trick = true;
-                        else
+                        trick = true;
+                        if(MainMenuButton.mode)
                             contrick = true;
                         GetComponent<AudioSource>().clip = aud[3];
                         GetComponent<AudioSource>().Play();

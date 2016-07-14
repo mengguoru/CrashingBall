@@ -98,13 +98,13 @@ public class ButtonController : MonoBehaviour {
         int chapter = levelName[2] - 48;//1 2 3
         int level = levelName[4] - 48;//1 2 3 ...9
         int index = (chapter - 1) * 9 + level - 1;
-        if (levelStatus[index] == 0)
-        {
+        //if (levelStatus[index] == 0)
+        //{
             GameController.nextLevelName = levelName;
             SceneManager.LoadScene("CutScene");
-        }
-        else
-            Debug.Log("还没通关哟");
+       // }
+      //  else
+           // Debug.Log("还没通关哟");
     }
 
     public void OnTrailChooseBtnClick(GameObject obj)
