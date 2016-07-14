@@ -31,6 +31,10 @@ public class GameController : MonoBehaviour {
             string RegexStr = @"^Lv[\w\W]*";
             if(Regex.IsMatch(levelName, RegexStr))
             {
+                if (!MainMenuButton.mode)
+                {
+                    GameObject.Find("Canvas").transform.FindChild("ButtonDisconnect").gameObject.SetActive(false);
+                }
                 int chapter = levelName[2] - 48;//1 2 3
                 int level = levelName[4] - 48;//1 2 3 ...9
                 if (level != 9)

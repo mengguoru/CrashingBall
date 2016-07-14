@@ -47,12 +47,12 @@ public class SmallPlayerController : NetworkBehaviour {
     void Update()
     {
         // Debug.Log(MagnetismController.trick);
-        Animator anim = NS.GetComponent<Animator>();
-        AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
+       
         if (canControl) {
             if (MagnetismController.trick/* && !MainMenuButton.mode)||(gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode) */&& !this.gameObject.GetComponent<CollisionController>().isInPortal)
             {
-              
+                Animator anim = NS.GetComponent<Animator>();
+                AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
                 this.gameObject.transform.position = GameObject.Find(BigPlayer.name).transform.position + new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle), 0);
                 if (Input.GetKey(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.5)
                 {
@@ -90,6 +90,8 @@ public class SmallPlayerController : NetworkBehaviour {
             }
             else
             {
+                Animator anim = NS.GetComponent<Animator>();
+                AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
                 if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.megni"))
                 {
                     anim.SetBool("NS", false);
