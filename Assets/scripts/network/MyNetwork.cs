@@ -79,8 +79,53 @@ public class MyNetwork : NetworkManager {
             else
                 playerPrefab = BigPlayer[5];
         }
+        else if (levelName == "Lv2.1" || levelName == "Lv2.2" || levelName == "Lv2.3" || levelName == "Lv2.5" || levelName == "Lv2.7")
+        {
+            if (singleton.numPlayers == 1)
+            {
+                playerPrefab = SmallPlayer[6];
+            }
+            else
+                playerPrefab = BigPlayer[6];
+        }
+        else if (levelName == "Lv2.4")
+        {
+            if (singleton.numPlayers == 1)
+            {
+                playerPrefab = SmallPlayer[7];
+            }
+            else
+                playerPrefab = BigPlayer[7];
+        }
+        else if (levelName == "Lv2.6")
+        {
+            if (singleton.numPlayers == 1)
+            {
+                playerPrefab = SmallPlayer[8];
+            }
+            else
+                playerPrefab = BigPlayer[8];
+        }
+        else if (levelName == "Lv2.8")
+        {
+            if (singleton.numPlayers == 1)
+            {
+                playerPrefab = SmallPlayer[9];
+            }
+            else
+                playerPrefab = BigPlayer[9];
+        }
+        else if (levelName == "Lv2.9")
+        {
+            if (singleton.numPlayers == 1)
+            {
+                playerPrefab = SmallPlayer[10];
+            }
+            else
+                playerPrefab = BigPlayer[10];
+        }
         //Debug.Log(network.isNetworkActive);
-       // Debug.Log(singleton.numPlayers);
+        // Debug.Log(singleton.numPlayers);
 
     }
 
@@ -112,7 +157,7 @@ public class MyNetwork : NetworkManager {
 
     void OnLevelWasLoaded(int level)
     {
-        int[] allScene = { 7,8,9,10,11,12,13,14,15 }; //6,7,8,9,10,11,12,13,24,25,26,27,28,29,30,31,32};
+        int[] allScene = { 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24 }; //6,7,8,9,10,11,12,13,24,25,26,27,28,29,30,31,32};
         int id = Array.IndexOf(allScene, level);
         if (level == 2)
             SetupConnectionSceneButtons();
@@ -124,6 +169,10 @@ public class MyNetwork : NetworkManager {
         else if(level == 5)
         {
             SetupChapter1Buttons();
+        }
+        else if(level == 6)
+        {
+            SetupChapter2Buttons();
         }
         if(id != -1)
         {
@@ -167,6 +216,27 @@ public class MyNetwork : NetworkManager {
         GameObject.Find("Lv1.8").GetComponent<Button>().onClick.AddListener(OnC1L8BtnClick);
 
         GameObject.Find("Lv1.9").GetComponent<Button>().onClick.AddListener(OnC1L9BtnClick);
+    }
+
+    void SetupChapter2Buttons()
+    {
+        GameObject.Find("Lv2.1").GetComponent<Button>().onClick.AddListener(OnC2L1BtnClick);
+
+        GameObject.Find("Lv2.2").GetComponent<Button>().onClick.AddListener(OnC2L2BtnClick);
+
+        GameObject.Find("Lv2.3").GetComponent<Button>().onClick.AddListener(OnC2L3BtnClick);
+
+        GameObject.Find("Lv2.4").GetComponent<Button>().onClick.AddListener(OnC2L4BtnClick);
+
+        GameObject.Find("Lv2.5").GetComponent<Button>().onClick.AddListener(OnC2L5BtnClick);
+
+        GameObject.Find("Lv2.6").GetComponent<Button>().onClick.AddListener(OnC2L6BtnClick);
+
+        GameObject.Find("Lv2.7").GetComponent<Button>().onClick.AddListener(OnC2L7BtnClick);
+
+        GameObject.Find("Lv2.8").GetComponent<Button>().onClick.AddListener(OnC2L8BtnClick);
+
+        GameObject.Find("Lv2.9").GetComponent<Button>().onClick.AddListener(OnC2L9BtnClick);
     }
 
     void SetupOtherSceneButtons()
@@ -283,6 +353,69 @@ public class MyNetwork : NetworkManager {
     {
         singleton.onlineScene = "Lv1.9";
         singleton.playerPrefab = BigPlayer[5];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L1BtnClick()
+    {
+        singleton.onlineScene = "Lv2.1";
+        singleton.playerPrefab = BigPlayer[6];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L2BtnClick()
+    {
+        singleton.onlineScene = "Lv2.2";
+        singleton.playerPrefab = BigPlayer[6];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L3BtnClick()
+    {
+        singleton.onlineScene = "Lv2.3";
+        singleton.playerPrefab = BigPlayer[6];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L4BtnClick()
+    {
+        singleton.onlineScene = "Lv2.4";
+        singleton.playerPrefab = BigPlayer[7];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L5BtnClick()
+    {
+        singleton.onlineScene = "Lv2.5";
+        singleton.playerPrefab = BigPlayer[6];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L6BtnClick()
+    {
+        singleton.onlineScene = "Lv2.6";
+        singleton.playerPrefab = BigPlayer[8];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L7BtnClick()
+    {
+        singleton.onlineScene = "Lv2.7";
+        singleton.playerPrefab = BigPlayer[6];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L8BtnClick()
+    {
+        singleton.onlineScene = "Lv2.8";
+        singleton.playerPrefab = BigPlayer[9];
+        SceneManager.LoadScene("NetworkConnection");
+    }
+
+    public void OnC2L9BtnClick()
+    {
+        singleton.onlineScene = "Lv2.9";
+        singleton.playerPrefab = BigPlayer[10];
         SceneManager.LoadScene("NetworkConnection");
     }
 

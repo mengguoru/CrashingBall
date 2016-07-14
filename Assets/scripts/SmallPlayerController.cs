@@ -38,11 +38,11 @@ public class SmallPlayerController : MonoBehaviour {
     {
         // Debug.Log(MagnetismController.trick);
         if (canControl) {
-            if (MagnetismController.trick && !this.gameObject.GetComponent<CollisionController>().isInPortal)
+            if ((MagnetismController.trick && !MainMenuButton.mode)||(gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode) && !this.gameObject.GetComponent<CollisionController>().isInPortal)
             {
                 Animator anim = NS.GetComponent<Animator>();
                 AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
-                this.gameObject.transform.position = BigPlayer.transform.position + new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle), 0);
+                this.gameObject.transform.position = GameObject.Find(BigPlayer.name).transform.position + new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle), 0);
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
                     radius += 0.01f;
@@ -81,7 +81,7 @@ public class SmallPlayerController : MonoBehaviour {
             else
             {
                 upvel = player.velocity.y;
-                /*if ((Input.GetKeyDown(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4)) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                if ((Input.GetKeyDown(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
                     player.velocity = new Vector2(2, upvel);
                 }
@@ -111,9 +111,9 @@ public class SmallPlayerController : MonoBehaviour {
                     GetComponent<AudioSource>().Play();
                 }
                 if (times >= 3)
-                    times = 0;*/
+                    times = 0;
 
-                if ((Input.GetKeyDown(KeyCode.RightArrow)) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                /*if ((Input.GetKeyDown(KeyCode.RightArrow)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
                     player.velocity = new Vector2(2, upvel);
                 }
@@ -140,7 +140,7 @@ public class SmallPlayerController : MonoBehaviour {
 
                     GetComponent<AudioSource>().clip = jump;
                     GetComponent<AudioSource>().Play();
-                }
+                }*/
                 if (t == 1 && GetComponent<CollisionController>().isTouchingFloor == 1) { t = 0; }
             }
         }

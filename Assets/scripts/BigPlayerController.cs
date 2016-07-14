@@ -35,7 +35,7 @@ public class BigPlayerController : MonoBehaviour
         if (canControl)
         {
             upvel = player.velocity.y;
-            if (MagnetismController.trick)
+            if ((MagnetismController.trick && !MainMenuButton.mode) || (gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode))
             {
                 Animator anim = NS.GetComponent<Animator>();
                 AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -46,7 +46,10 @@ public class BigPlayerController : MonoBehaviour
                 }
                 if (Input.GetKeyDown("s"))
                 {
-                    MagnetismController.trick = false;
+                    if (!MainMenuButton.mode)
+                        MagnetismController.trick = false;
+                    else
+                        gameObject.GetComponent<MagnetismController>().contrick = false;
                     if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Bigmegni"))
                     {
                         anim.SetBool("NS", false);
@@ -55,7 +58,7 @@ public class BigPlayerController : MonoBehaviour
                 }
             }
 
-            /* if ((Input.GetKey("d") || (CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") > 0.4)) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
+             if ((Input.GetKey("d") || (CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") > 0.4)) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
                  {
                  player.velocity = new Vector2(2, upvel);
              }
@@ -88,9 +91,9 @@ public class BigPlayerController : MonoBehaviour
 
              if (times >= 3)
                  times = 0;
-                 */
+                 
 
-            if ((Input.GetKey("d") ) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
+            /*if ((Input.GetKey("d") ) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
             {
                 player.velocity = new Vector2(2, upvel);
             }
@@ -117,7 +120,7 @@ public class BigPlayerController : MonoBehaviour
 
             GetComponent<AudioSource>().clip = jump;
             GetComponent<AudioSource>().Play();
-        }
+        }*/
         if (t == 1 && GetComponent<CollisionController>().isTouchingFloor == 1) { t = 0; }
         }
     }

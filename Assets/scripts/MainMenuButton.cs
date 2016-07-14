@@ -5,6 +5,7 @@ using System.IO;
 public class MainMenuButton : MonoBehaviour {
 
     public static int hadRegulateSlider;
+    public static bool mode;//true 为联机 false为单人
 
     void Awake()
     {
@@ -69,16 +70,19 @@ public class MainMenuButton : MonoBehaviour {
     public void OnSingleModeBtnClick()
     {
         SceneManager.LoadScene("Chapter1");
+        mode = false;
     }
 
     public void OnConModeBtnClick()
     {
         SceneManager.LoadScene("ConChapter1");
+        mode = true;
     }
 
     public void OnTrialBtnClick()
     {
         SceneManager.LoadScene("Trial");
+        mode = false;
     }
 
 
