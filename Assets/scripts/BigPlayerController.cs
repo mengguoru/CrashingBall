@@ -15,7 +15,7 @@ public class BigPlayerController : NetworkBehaviour
     float force;
     int l;
     public AudioClip jump;
-    public GameObject NS;
+    //public GameObject NS;
     int t = 0;
     public bool canControl;
     int times = 0;

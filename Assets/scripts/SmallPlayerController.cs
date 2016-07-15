@@ -18,7 +18,7 @@ public class SmallPlayerController : NetworkBehaviour {
     int t;
     int times = 0;
     public AudioClip jump;
-    public GameObject NS;
+    //public GameObject NS;
     public bool canControl;
 
     void Start()
