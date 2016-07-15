@@ -2,16 +2,16 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using UnityEngine.Networking;
 
-public class MagnetismController : NetworkBehaviour {
+
+public class MagnetismController : MonoBehaviour {
 
     public int magnetism;//0无磁性  1N 2S
     public GameObject[] ball;
     public Rigidbody2D rb;
     public static bool trick;
-    [SyncVar]
-    public bool contrick;
+    //[SyncVar]
+    //public bool contrick;
 
     List<Vector2> disVector;
     List<Vector2> forceVector;
@@ -19,10 +19,10 @@ public class MagnetismController : NetworkBehaviour {
     void Start () {
         magnetism = 0;
         rb = GetComponent<Rigidbody2D>();
-        if (!MainMenuButton.mode)
+       // if (!MainMenuButton.mode)
             trick = false;
-        else
-            contrick = false;
+        //else
+            //contrick = false;
         disVector = new List<Vector2>();
         forceVector = new List<Vector2>();
         for(int i = 0; i < ball.Length; i++)
@@ -52,8 +52,8 @@ public class MagnetismController : NetworkBehaviour {
             }
         }
 
-        if (MainMenuButton.mode)
-            trick = contrick;
+        //if (MainMenuButton.mode)
+           // trick = contrick;
 
 	}
 
@@ -110,8 +110,8 @@ public class MagnetismController : NetworkBehaviour {
                     if ((Regex.IsMatch(coll.gameObject.name, RegexStr4) && Regex.IsMatch(this.gameObject.name, RegexStr5)) || (Regex.IsMatch(coll.gameObject.name, RegexStr5) && Regex.IsMatch(this.gameObject.name, RegexStr4)))
                     {
                         trick = true;
-                        if(MainMenuButton.mode)
-                            contrick = true;
+                       // if(MainMenuButton.mode)
+                           // contrick = true;
                         GetComponent<AudioSource>().clip = aud[3];
                         GetComponent<AudioSource>().Play();
                     }

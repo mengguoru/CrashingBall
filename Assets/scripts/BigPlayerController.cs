@@ -49,29 +49,29 @@ public class BigPlayerController : NetworkBehaviour
             upvel = player.velocity.y;
             if (MagnetismController.trick /*&& !MainMenuButton.mode) || (gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode)*/)
             {
-                Animator anim = NS.GetComponent<Animator>();
-                AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
-                if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Idle"))
+                //Animator anim = NS.GetComponent<Animator>();
+                //AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
+               /* if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Idle"))
                 {
                     anim.SetBool("NS", true);
 
-                }
+                }*/
                 btnCancel.GetComponent<Button>().onClick.AddListener(OnCancelButtonClick);
                 
                 if (Input.GetKeyDown("s"))
                 {
                     MagnetismController.trick = false;
-                    if (MainMenuButton.mode)
+                    /*if (MainMenuButton.mode)
                     {
                         if(isServer)
                             GetComponent<MagnetismController>().contrick = false;
-                    }
+                    }*/
                       
-                    if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Bigmegni"))
-                    {
-                        anim.SetBool("NS", false);
+                   // if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Bigmegni"))
+                   // {
+                     //   anim.SetBool("NS", false);
 
-                    }
+                  //  }
                 }
             }
 
@@ -144,7 +144,7 @@ public class BigPlayerController : NetworkBehaviour
    void OnCancelButtonClick()
     {
         MagnetismController.trick = false;
-        if (MainMenuButton.mode)
+       /* if (MainMenuButton.mode)
         {
             if (isServer)
                 GetComponent<MagnetismController>().contrick = false;
@@ -155,7 +155,7 @@ public class BigPlayerController : NetworkBehaviour
         {
             anim.SetBool("NS", false);
             Debug.Log("cancel");
-        }
+        }*/
     }
 }
 
