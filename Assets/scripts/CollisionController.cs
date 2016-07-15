@@ -116,13 +116,13 @@ public class CollisionController : MonoBehaviour {
             {
                 if(obj.name == portal[1].name)
                 {
-                    this.gameObject.transform.position = portalPosition[2] + new Vector3(-0.8f,0,0);
+                    this.gameObject.transform.position = portalPosition[2] + new Vector3(-1,-portal[2].transform.localScale.y/2,0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
                 else if(obj.name == portal[2].name)
                 {
-                    this.gameObject.transform.position = portalPosition[1] + new Vector3(0.8f,0,0);
+                    this.gameObject.transform.position = portalPosition[1] + new Vector3(1, -portal[1].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
@@ -131,13 +131,13 @@ public class CollisionController : MonoBehaviour {
             {
                 if (obj.name == portal[0].name)
                 {
-                    this.gameObject.transform.position = portalPosition[2] + new Vector3(-0.8f, 0, 0);
+                    this.gameObject.transform.position = portalPosition[2] + new Vector3(-1, -portal[2].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
                 else if (obj.name == portal[2].name)
                 {
-                    this.gameObject.transform.position = portalPosition[0] + new Vector3(-0.8f, 0, 0);
+                    this.gameObject.transform.position = portalPosition[0] + new Vector3(-1, -portal[0].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
@@ -146,13 +146,13 @@ public class CollisionController : MonoBehaviour {
             {
                 if (obj.name == portal[0].name)
                 {
-                    this.gameObject.transform.position = portalPosition[1] + new Vector3(0.8f, 0, 0);
+                    this.gameObject.transform.position = portalPosition[1] + new Vector3(1, -portal[1].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
                 else if (obj.name == portal[1].name)
                 {
-                    this.gameObject.transform.position = portalPosition[0] + new Vector3(-0.8f, 0, 0);
+                    this.gameObject.transform.position = portalPosition[0] + new Vector3(-1, -portal[0].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
@@ -164,14 +164,14 @@ public class CollisionController : MonoBehaviour {
             if(obj.name == portal[0].name)
             {
                 isInPortal = true;
-                this.gameObject.transform.position = portalPosition[1] + new Vector3(0.8f, 0, 0);
+                this.gameObject.transform.position = portalPosition[1] + new Vector3(1, -portal[1].transform.localScale.y / 2, 0);
                 GetComponent<AudioSource>().clip = aud[2];
                 GetComponent<AudioSource>().Play();
             }
             else if (obj.name == portal[1].name)
             {
                 isInPortal = true;
-                this.gameObject.transform.position = portalPosition[0] + new Vector3(-0.8f, 0, 0);
+                this.gameObject.transform.position = portalPosition[0] + new Vector3(-1, -portal[0].transform.localScale.y / 2, 0);
                 GetComponent<AudioSource>().clip = aud[2];
                 GetComponent<AudioSource>().Play();
             }
