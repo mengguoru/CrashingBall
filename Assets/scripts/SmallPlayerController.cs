@@ -103,27 +103,27 @@ public class SmallPlayerController : NetworkBehaviour {
                 }*/
                
                 upvel = player.velocity.y;
-                if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4)) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.5)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
                     player.velocity = new Vector2(2, upvel);
                 }
-                else if (t == 0 && (Input.GetKeyDown(KeyCode.RightArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4) && GetComponent<CollisionController>().isTouchingFloor == 0)
+                else if (t == 0 && (Input.GetKeyDown(KeyCode.RightArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.5) && GetComponent<CollisionController>().isTouchingFloor == 0)
                 {
                     player.AddForce(new Vector2(60, 0));
                     t = 1;
                 }
-                else if (t == 0 && (Input.GetKeyDown(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.4f) && GetComponent<CollisionController>().isTouchingFloor == 0)
+                else if (t == 0 && (Input.GetKeyDown(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.5f) && GetComponent<CollisionController>().isTouchingFloor == 0)
                 {
                     player.AddForce(new Vector2(-60, 0));
                     t = 1;
                 }
-                else if ((Input.GetKey(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.4) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                else if ((Input.GetKey(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.5) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
                     player.velocity = new Vector2(-2, upvel);
 
                 }
 
-                if ((Input.GetKeyDown(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.5) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                if ((Input.GetKeyDown(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.6) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
                     if(times == 0)
                         player.velocity += new Vector2(0, velocity);
