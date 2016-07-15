@@ -67,6 +67,7 @@ public class ButtonController : MonoBehaviour {
 
     void Start()
     {
+        Time.timeScale = 1.0f;
         //LoadXml();
         /*arr = LoadFile(Application.persistentDataPath, "data1.txt");
         for(int i = 0; i < arr.Count; i++)
