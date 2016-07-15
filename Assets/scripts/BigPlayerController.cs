@@ -109,8 +109,8 @@ public class BigPlayerController : NetworkBehaviour
              if (times >= 3)
                  times = 0;
                  
-
-            /*if ((Input.GetKey("d") ) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
+            /*
+            if ((Input.GetKey("d") ) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
             {
                 player.velocity = new Vector2(2, upvel);
             }
@@ -129,7 +129,7 @@ public class BigPlayerController : NetworkBehaviour
                 player.velocity = new Vector2(-2, upvel);
 
         }
-
+    
         if ((Input.GetKeyDown("w") ) && GetComponent<CollisionController>().isTouchingFloor == 1)
         {
 
