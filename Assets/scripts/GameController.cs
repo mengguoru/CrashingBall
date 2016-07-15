@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
     void Start()
     {
         levelName = SceneManager.GetActiveScene().name;
-        if(levelName != "CutScene")
+        if(levelName != "CutScene" && levelName != "Trial1.8")
         {
             Time.timeScale = 1.0f;
             condition = 2;
@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
-        if (levelName != "CutScene")
+        if (levelName != "CutScene" && levelName != "Trial1.8")
         {
             if (condition == 0)
             {
@@ -76,9 +76,9 @@ public class GameController : MonoBehaviour {
                 }
                 else
                 {
-                    if (nextLevelName == "Trial1.9")
-                        SceneManager.LoadScene("Chapter1");
-                    else
+                   // if (nextLevelName == "Trial1.9")
+                   //     SceneManager.LoadScene("Chapter1");
+                    //else
                         SceneManager.LoadScene(nextLevelName);
                 }
 
