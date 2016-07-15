@@ -8,6 +8,7 @@ public class MagTrial : MonoBehaviour {
     public string[] dialogue;
     public int currentState;
     public string coutinueText;
+    public Button btn;
 
 	// Use this for initialization
 	void Start () {
@@ -32,11 +33,7 @@ public class MagTrial : MonoBehaviour {
             myStateMachine(currentState);
             currentState++;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && currentState<=dialogue.Length)
-        {
-            myStateMachine(currentState);
-            currentState++;
-        }
+        //btn.GetComponent<Button>().onClick.AddListener(OnContinueBtnClick);
         if (currentState == dialogue.Length)
             SceneManager.LoadScene("Chapter1");
 
@@ -67,5 +64,15 @@ public class MagTrial : MonoBehaviour {
     void myStateMachine(int i)
     {
         showText.text = dialogue[i]+coutinueText;
+    }
+
+   public void OnContinueBtnClick()
+    {
+        if(currentState <= dialogue.Length)
+        {
+            myStateMachine(currentState);
+            currentState++;
+            Debug.Log(currentState);
+        }
     }
 }
