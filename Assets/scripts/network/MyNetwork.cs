@@ -11,7 +11,7 @@ using System;
 public class MyNetwork : NetworkManager {
     public GameObject[] SmallPlayer;
     public GameObject[] BigPlayer;
-    private NetworkStartPosition[] spawnPoints;
+    //private NetworkStartPosition[] spawnPoints;
 
     // NetworkManager network;
 
@@ -29,10 +29,10 @@ public class MyNetwork : NetworkManager {
         {
             if (singleton.numPlayers == 1)
             {
-                playerPrefab = SmallPlayer[0];
+                singleton.playerPrefab = SmallPlayer[0];
             }
             else
-                playerPrefab = BigPlayer[0];
+                singleton.playerPrefab = BigPlayer[0];
         }
         else if (levelName == "Lv1.3")
         {
@@ -79,7 +79,7 @@ public class MyNetwork : NetworkManager {
             else
                 playerPrefab = BigPlayer[5];
         }
-        else if (levelName == "Lv2.1" || levelName == "Lv2.2" || levelName == "Lv2.3" || levelName == "Lv2.5" || levelName == "Lv2.7")
+        /*else if (levelName == "Lv2.1" || levelName == "Lv2.2" || levelName == "Lv2.3" || levelName == "Lv2.5" || levelName == "Lv2.7")
         {
             if (singleton.numPlayers == 1)
             {
@@ -123,7 +123,7 @@ public class MyNetwork : NetworkManager {
             }
             else
                 playerPrefab = BigPlayer[10];
-        }
+        }*/
         //Debug.Log(network.isNetworkActive);
         // Debug.Log(singleton.numPlayers);
 
@@ -157,29 +157,29 @@ public class MyNetwork : NetworkManager {
 
     void OnLevelWasLoaded(int level)
     {
-        int[] allScene = { 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24 }; //6,7,8,9,10,11,12,13,24,25,26,27,28,29,30,31,32};
+        int[] allScene = { 5,6,7, 8, 9, 10, 11, 12, 13 };//16,17,18,19,20,21,22,23,24 }; //6,7,8,9,10,11,12,13,24,25,26,27,28,29,30,31,32};
         int id = Array.IndexOf(allScene, level);
         if (level == 2)
-            SetupConnectionSceneButtons();
-        else if(level == 3)
+           SetupConnectionSceneButtons();
+       if(level == 3)
         {
             singleton.StopHost();
             singleton.onlineScene = GameController.nextLevelName;
         }
-        else if(level == 5)
-        {
-            SetupChapter1Buttons();
-        }
-        else if(level == 6)
+       
+        /*else if(level == 6)
         {
             SetupChapter2Buttons();
-        }
+        }*/
         if(id != -1)
         {
             SetupOtherSceneButtons();
             Debug.Log("isinlevel");
-            GameObject.Find("BigPlayer").gameObject.SetActive(false);
-            GameObject.Find("SmallPlayer").gameObject.SetActive(false);
+            if (MainMenuButton.mode)
+            {
+                GameObject.Find("BigPlayer").gameObject.SetActive(false);
+                GameObject.Find("SmallPlayer").gameObject.SetActive(false);
+            }
         }
     }
     
@@ -194,10 +194,12 @@ public class MyNetwork : NetworkManager {
         //GameObject.Find("ButtonGetIP").GetComponent<Button>().onClick.RemoveAllListeners();
         GameObject.Find("ButtonGetIP").GetComponent<Button>().onClick.AddListener(GetUserIP);
 
+        GameObject.Find("ButtonBack").GetComponent<Button>().onClick.AddListener(OnBackBtnClick);
+
         //GameObject.Find("ButtonChooseLevel").GetComponent<Button>().onClick.AddListener(OnLevelChooseBtnClick);
     }
 
-    void SetupChapter1Buttons()
+    /*void SetupChapter1Buttons()
     {
         GameObject.Find("Lv1.1").GetComponent<Button>().onClick.AddListener(OnC1L1BtnClick);
 
@@ -216,9 +218,9 @@ public class MyNetwork : NetworkManager {
         GameObject.Find("Lv1.8").GetComponent<Button>().onClick.AddListener(OnC1L8BtnClick);
 
         GameObject.Find("Lv1.9").GetComponent<Button>().onClick.AddListener(OnC1L9BtnClick);
-    }
+    }*/
 
-    void SetupChapter2Buttons()
+    /*void SetupChapter2Buttons()
     {
         GameObject.Find("Lv2.1").GetComponent<Button>().onClick.AddListener(OnC2L1BtnClick);
 
@@ -237,7 +239,7 @@ public class MyNetwork : NetworkManager {
         GameObject.Find("Lv2.8").GetComponent<Button>().onClick.AddListener(OnC2L8BtnClick);
 
         GameObject.Find("Lv2.9").GetComponent<Button>().onClick.AddListener(OnC2L9BtnClick);
-    }
+    }*/
 
     void SetupOtherSceneButtons()
     {
@@ -265,7 +267,7 @@ public class MyNetwork : NetworkManager {
 
     public void OnBackButtonClick()
     {
-        SceneManager.LoadScene("ConChapter1");
+        SceneManager.LoadScene("ModeChoose");
     }
 
     /*public void OnConLevelChooseBtnClick(GameObject obj)
@@ -293,7 +295,7 @@ public class MyNetwork : NetworkManager {
         //Debug.Log("还没通关哟");
     }*/
 
-    public void OnC1L1BtnClick()
+   /* public void OnC1L1BtnClick()
     {
         singleton.onlineScene = "Lv1.1";
         singleton.playerPrefab = BigPlayer[0];
@@ -417,6 +419,11 @@ public class MyNetwork : NetworkManager {
         singleton.onlineScene = "Lv2.9";
         singleton.playerPrefab = BigPlayer[10];
         SceneManager.LoadScene("NetworkConnection");
+    }*/
+
+    void OnBackBtnClick()
+    {
+        SceneManager.LoadScene("ModeChoose");
     }
 
 }

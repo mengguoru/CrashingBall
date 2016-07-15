@@ -135,7 +135,7 @@ public class SmallPlayerController : NetworkBehaviour {
                 if (times >= 3)
                     times = 0;
 
-                /*if ((Input.GetKeyDown(KeyCode.RightArrow)) && GetComponent<CollisionController>().isTouchingFloor == 1)
+               /* if ((Input.GetKeyDown(KeyCode.RightArrow)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
                     player.velocity = new Vector2(2, upvel);
                 }

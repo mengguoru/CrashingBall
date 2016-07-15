@@ -123,7 +123,7 @@ public class ButtonController : MonoBehaviour {
         SceneManager.LoadScene("Chapter1");
     }
 
-    public void OnConNextChapterBtnClick()
+    /*public void OnConNextChapterBtnClick()
     {
         SceneManager.LoadScene("ConChapter2");
     }
@@ -131,7 +131,7 @@ public class ButtonController : MonoBehaviour {
     public void OnConLastChapterBtnClick()
     {
         SceneManager.LoadScene("ConChapter1");
-    }
+    }*/
 
     public void OnBackConBtnClick()
     {
