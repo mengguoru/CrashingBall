@@ -164,6 +164,9 @@ public class MyNetwork : NetworkManager {
        if(level == 3)
         {
             singleton.StopHost();
+            if (GameController.nextLevelName == "Lv2.1" && MainMenuButton.mode)
+                GameController.nextLevelName = "Lv1.1";
+
             singleton.onlineScene = GameController.nextLevelName;
         }
        
