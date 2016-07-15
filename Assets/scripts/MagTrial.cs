@@ -39,7 +39,30 @@ public class MagTrial : MonoBehaviour {
         }
         if (currentState == dialogue.Length)
             SceneManager.LoadScene("Chapter1");
-	}
+
+        if (currentState == 6)
+        {
+            Debug.Log("play");
+            //GameObject.Find("click").GetComponent<Animator>().Play("clickhere");
+            Animator anim = GameObject.Find("click").GetComponent<Animator>();
+            AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
+            if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Idle"))
+            {
+                anim.SetBool("click", true);
+            }
+        }
+        else
+        {
+            Animator anim = GameObject.Find("click").GetComponent<Animator>();
+            AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
+            if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.clickhere"))
+            {
+                anim.SetBool("click", false);
+            }
+        }
+        //else
+            //GameObject.Find("click").GetComponent<Animator>().Stop();
+    }
 
     void myStateMachine(int i)
     {

@@ -18,7 +18,7 @@ public class SmallPlayerController : NetworkBehaviour {
     int t;
     int times = 0;
     public AudioClip jump;
-    public GameObject NS;
+    //public GameObject NS;
     public bool canControl;
 
     void Start()
@@ -51,8 +51,8 @@ public class SmallPlayerController : NetworkBehaviour {
         if (canControl) {
             if (MagnetismController.trick/* && !MainMenuButton.mode)||(gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode) */&& !this.gameObject.GetComponent<CollisionController>().isInPortal)
             {
-                Animator anim = NS.GetComponent<Animator>();
-                AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
+                //Animator anim = NS.GetComponent<Animator>();
+                //AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
                 this.gameObject.transform.position = GameObject.Find(BigPlayer.name).transform.position + new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle), 0);
                 if (Input.GetKey(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.5)
                 {
@@ -75,23 +75,23 @@ public class SmallPlayerController : NetworkBehaviour {
                 if (radius > maxRadius)
                 {
                     MagnetismController.trick = false;
-                    if (MainMenuButton.mode)
+                    /*if (MainMenuButton.mode)
                     {
                         if(isServer)
                             GetComponent<MagnetismController>().contrick = false;
-                    }
+                    }*/
                 }
 
-                if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Idle"))
+                /*if (stateinfo.fullPathHash == Animator.StringToHash("Base Layer.Idle"))
                 {
                     anim.SetBool("NS", true);
 
-                }
+                }*/
             }
             else
             {
-                string RegexStr = @"^Lv2[\w\W]*";
-                if (Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr))
+                /*string RegexStr = @"^Lv2[\w\W]*";
+                if (Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr) || SceneManager.GetActiveScene().name == "Trial1.8")
                 {
                     Animator anim = NS.GetComponent<Animator>();
                     AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -100,7 +100,7 @@ public class SmallPlayerController : NetworkBehaviour {
                         anim.SetBool("NS", false);
 
                     }
-                }
+                }*/
                
                 upvel = player.velocity.y;
                 if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.4)) && GetComponent<CollisionController>().isTouchingFloor == 1)
