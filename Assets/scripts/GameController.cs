@@ -152,7 +152,12 @@ public class GameController : MonoBehaviour {
         {
             string RegexStr1 = @"^Lv[\w\W]*";
             if (Regex.IsMatch(levelName, RegexStr1))
-                SceneManager.LoadScene("Chapter1");
+            {
+                if (MainMenuButton.mode)
+                    SceneManager.LoadScene("ConChapter1");
+                else
+                    SceneManager.LoadScene("Chapter1");
+            }    
             else
                 SceneManager.LoadScene("Trial");
         }
@@ -163,7 +168,10 @@ public class GameController : MonoBehaviour {
         }
         else if(GUI.Button(new Rect(Screen.width*3 / 8, Screen.height*0.35f, Screen.width*0.31f, Screen.width / 7), "",restart))
         {
-            SceneManager.LoadScene(levelName);
+            if (MainMenuButton.mode)
+                SceneManager.LoadScene("ConChapter1");
+            else
+                SceneManager.LoadScene(levelName);
         }
         else if(GUI.Button(new Rect(Screen.width / 3, Screen.height*0.45f, Screen.width * 0.38f, Screen.width / 7), "", option))
         {
