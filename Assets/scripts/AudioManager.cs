@@ -31,9 +31,16 @@ public class AudioManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         string RegexStr = @"^Lv[\w\W]*";
-        if (Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr))
+        string RegexStr1 = @"^Trial[\w\W]*";
+        if (Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr) || (Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr1) && SceneManager.GetActiveScene().name != "Trial"))
         {
-            this.gameObject.SetActive(false);
+            GameObject.Find("AudioManager").GetComponent<AudioSource>().Stop();
         }
+        else
+        {
+            if(!GameObject.Find("AudioManager").GetComponent<AudioSource>().isPlaying)
+                GameObject.Find("AudioManager").GetComponent<AudioSource>().Play();
+        }
+
     }
 }
