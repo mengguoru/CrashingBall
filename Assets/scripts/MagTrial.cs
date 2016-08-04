@@ -8,7 +8,7 @@ public class MagTrial : MonoBehaviour {
     public string[] dialogue;
     public int currentState;
     public string coutinueText;
-    public Button btn;
+   // public Button btn;
 
 	// Use this for initialization
 	void Start () {

@@ -147,8 +147,8 @@ public class GameController : MonoBehaviour {
     void PauseWindow(int WindowID)
     {
         Time.timeScale = 0;
-        Debug.Log("pause");
-        if (GUI.Button(new Rect(Screen.width/3, Screen.height*3/5, Screen.width*2/5, Screen.width / 7), "",back))
+        //Debug.Log("pause");
+        if (GUI.Button(new Rect(Screen.width/3, Screen.height*3/5, Screen.width*2/5, Screen.height / 5), "",back))
         {
             Time.timeScale = 1.0f;
             string RegexStr1 = @"^Lv[\w\W]*";
@@ -160,22 +160,22 @@ public class GameController : MonoBehaviour {
             else
                 SceneManager.LoadScene("Trial");
         }
-        else if(GUI.Button(new Rect(Screen.width / 3, Screen.height/5, Screen.width*0.35f, Screen.width / 7), "",resume))
+        else if(GUI.Button(new Rect(Screen.width / 3, Screen.height/5, Screen.width*0.35f, Screen.height / 5), "",resume))
         {
             pausewindowShow = false;
             Time.timeScale = 1.0f;
         }
-        else if(GUI.Button(new Rect(Screen.width*3 / 8, Screen.height*0.35f, Screen.width*0.31f, Screen.width / 7), "",restart))
+        else if(GUI.Button(new Rect(Screen.width*3 / 8, Screen.height*0.35f, Screen.width*0.31f, Screen.height / 5), "",restart))
         {
             
             if (!MainMenuButton.mode)
                 SceneManager.LoadScene(levelName);
         }
-        else if(GUI.Button(new Rect(Screen.width / 3, Screen.height*0.45f, Screen.width * 0.38f, Screen.width / 7), "", option))
+        else if(GUI.Button(new Rect(Screen.width / 3, Screen.height*0.45f, Screen.width * 0.38f, Screen.height / 5), "", option))
         {
             pausewindowShow = false;
             volumnwindowShow = true;
-            
+            Debug.Log("option");
         }
     }
 
