@@ -20,6 +20,7 @@ public class SliderController : MonoBehaviour {
         {
             slider[i].GetComponent<Slider>().value = VolumnController.volumn[i];
         }
+        
     }
 
     void Update () {

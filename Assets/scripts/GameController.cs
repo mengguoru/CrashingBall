@@ -155,7 +155,7 @@ public class GameController : MonoBehaviour {
             if (Regex.IsMatch(levelName, RegexStr1))
             {
                 if (!MainMenuButton.mode)
-                    SceneManager.LoadScene("Chapter1");
+                    SceneManager.LoadScene("Chapter");
             }    
             else
                 SceneManager.LoadScene("Trial");

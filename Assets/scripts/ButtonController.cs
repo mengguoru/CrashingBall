@@ -113,15 +113,6 @@ public class ButtonController : MonoBehaviour {
         SceneManager.LoadScene(obj.name);
     }
 
-    public void OnNextChapterBtnClick()
-    {
-        SceneManager.LoadScene("Chapter2");
-    }
-
-    public void OnLastChapterBtnClick()
-    {
-        SceneManager.LoadScene("Chapter1");
-    }
 
     /*public void OnConNextChapterBtnClick()
     {

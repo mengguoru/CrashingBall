@@ -69,7 +69,7 @@ public class MainMenuButton : MonoBehaviour {
 
     public void OnSingleModeBtnClick()
     {
-        SceneManager.LoadScene("Chapter1");
+        SceneManager.LoadScene("Chapter");
         mode = false;
     }
 
