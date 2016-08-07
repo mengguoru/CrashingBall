@@ -260,6 +260,26 @@ public class CollisionController : MonoBehaviour {
                 attribute = 0;
                 coll.gameObject.GetComponent<CollisionController>().attribute = 0;
             }
+
+            if (GetComponent<Rigidbody2D>().velocity.y > 0.2f && transform.position.y<coll.transform.position.y)
+            {
+                Debug.Log("crash");
+                if (Regex.IsMatch(coll.gameObject.name, RegexStr10))
+                {
+                    coll.gameObject.GetComponent<Rigidbody2D>().AddForce(GetComponent<Rigidbody2D>().velocity*25);
+                    Debug.Log("smallcrash");
+                }
+                   
+                else if(Regex.IsMatch(coll.gameObject.name, RegexStr9))
+                {
+                    if(GetComponent<Rigidbody2D>().velocity.y * 500<600)
+                        coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x*20,GetComponent<Rigidbody2D>().velocity.y*500));
+                    else
+                        coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, 600));
+                    Debug.Log("bigcrash");
+                }
+                    
+            }
         }
 
         //与门碰撞
