@@ -16,7 +16,7 @@ public class SmallPlayerController : NetworkBehaviour {
     float speed;
     float upvel;
     int t;
-    int times = 0;
+    int u;
     public AudioClip jump;
     //public GameObject NS;
     public bool canControl;
@@ -35,8 +35,9 @@ public class SmallPlayerController : NetworkBehaviour {
         }
         player = GetComponent<Rigidbody2D>();
 
-        velocity = 6;
+        velocity = 8.5f;
         t = 0;
+        u = 0;
         upvel = 0;
         radius = 0.8f;
         maxRadius = 5;
@@ -103,37 +104,36 @@ public class SmallPlayerController : NetworkBehaviour {
                 }*/
                
                 upvel = player.velocity.y;
-                if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.5)) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.3f)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
-                    player.velocity = new Vector2(2, upvel);
+                    player.velocity = new Vector2(3* CrossPlatformInputManager.GetAxis("smallPlayerHorizontal"), upvel);
                 }
-                else if (t == 0 && (Input.GetKeyDown(KeyCode.RightArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.5) && GetComponent<CollisionController>().isTouchingFloor == 0)
+                else if (t == 0 && (Input.GetKeyDown(KeyCode.RightArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.7f) && GetComponent<CollisionController>().isTouchingFloor == 0)
                 {
-                    player.AddForce(new Vector2(60, 0));
+                    player.AddForce(new Vector2(70, 0));
                     t = 1;
                 }
-                else if (t == 0 && (Input.GetKeyDown(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.5f) && GetComponent<CollisionController>().isTouchingFloor == 0)
+                else if (t == 0 && (Input.GetKeyDown(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.7f) && GetComponent<CollisionController>().isTouchingFloor == 0)
                 {
-                    player.AddForce(new Vector2(-60, 0));
+                    player.AddForce(new Vector2(-70, 0));
                     t = 1;
                 }
-                else if ((Input.GetKey(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.5) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                else if ((Input.GetKey(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.3f) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
-                    player.velocity = new Vector2(-2, upvel);
+                    player.velocity = new Vector2(3* CrossPlatformInputManager.GetAxis("smallPlayerHorizontal"), upvel);
 
                 }
 
-                if ((Input.GetKeyDown(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.6) && GetComponent<CollisionController>().isTouchingFloor == 1)
+                if (u==0 && (Input.GetKeyDown(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.6f) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
-                    if(times == 0)
-                        player.velocity += new Vector2(0, velocity);
-
-                    times++;
+                    player.velocity += new Vector2(0, velocity);
                     GetComponent<AudioSource>().clip = jump;
                     GetComponent<AudioSource>().Play();
+                    u = 1;
                 }
-                if (times >= 3)
-                    times = 0;
+                //times = 0;
+               // if (times >= 3)
+                  //  times = 0;
 
                /* if ((Input.GetKeyDown(KeyCode.RightArrow)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
@@ -163,7 +163,15 @@ public class SmallPlayerController : NetworkBehaviour {
                     GetComponent<AudioSource>().clip = jump;
                     GetComponent<AudioSource>().Play();
                 }*/
-                if (t == 1 && GetComponent<CollisionController>().isTouchingFloor == 1) { t = 0; }
+                if (t == 1 && GetComponent<CollisionController>().isTouchingFloor == 1)
+                {
+                    t = 0;
+                }
+                if (u == 1 && GetComponent<CollisionController>().isTouchingFloor == 0)
+                {
+                    u = 0;
+                }
+                Debug.Log(u);
             }
         }
 

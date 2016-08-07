@@ -313,7 +313,8 @@ public class CollisionController : MonoBehaviour {
 
     void OnCollisionStay2D(Collision2D coll)
     {
-        isTouchingFloor = 1;
+        if(coll.gameObject.name != "BigPlayer" && coll.gameObject.name != "SmallPlayer" && coll.gameObject.name != "background")
+            isTouchingFloor = 1;
 
         for(int i = 0 ; i<Trigger.Length ; i++)
         {
