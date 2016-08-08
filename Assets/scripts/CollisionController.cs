@@ -48,9 +48,15 @@ public class CollisionController : MonoBehaviour {
                 float dis = Mathf.Abs(elementDoor[i].transform.position.y - transform.position.y);
                 bool isTouchL = (elementDoor[i].transform.position.x - elementDoor[i].transform.localScale.y / 2) < transform.position.x ;
                 bool isTouchR = (elementDoor[i].transform.position.x + elementDoor[i].transform.localScale.y / 2) > transform.position.x;
-                if (dis < GetComponent<CircleCollider2D>().radius + elementDoor[i].GetComponent<BoxCollider2D>().size.x && isTouchL && isTouchR)
+                if(elementDoor[i].gameObject.name == "FireDoor")
+                {
+                    Debug.Log(isTouchL);
+                    Debug.Log(isTouchR);
+                }
+                if (dis < GetComponent<CircleCollider2D>().radius + elementDoor[i].transform.localScale.y / 2 && isTouchL && isTouchR)
                 {
                     Debug.Log("dis");
+                    Debug.Log(elementDoor[i].gameObject.name);
                     if (Regex.IsMatch(elementDoor[i].name, @"^IceDoor[\w\W]*") && attribute == 1)
                     {
                         Debug.Log("ice");
@@ -64,6 +70,11 @@ public class CollisionController : MonoBehaviour {
                         GetComponent<CircleCollider2D>().isTrigger = true;
                         playerIsTrigger++;
                         break;
+                    }
+
+                    else
+                    {
+                        GetComponent<CircleCollider2D>().isTrigger = false;
                     }
                 }  
             }
