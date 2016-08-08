@@ -106,7 +106,7 @@ public class SmallPlayerController : NetworkBehaviour {
                 upvel = player.velocity.y;
                 if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
-                    player.velocity = new Vector2(3* CrossPlatformInputManager.GetAxis("smallPlayerHorizontal"), upvel);
+                    player.velocity = new Vector2(3, upvel);
                 }
                 else if (t == 0 && (Input.GetKeyDown(KeyCode.RightArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0.7f) && GetComponent<CollisionController>().isTouchingFloor == 0)
                 {
@@ -120,7 +120,7 @@ public class SmallPlayerController : NetworkBehaviour {
                 }
                 else if ((Input.GetKey(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < 0) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
-                    player.velocity = new Vector2(3* CrossPlatformInputManager.GetAxis("smallPlayerHorizontal"), upvel);
+                    player.velocity = new Vector2(-3, upvel);
 
                 }
 

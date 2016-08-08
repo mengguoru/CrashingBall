@@ -78,21 +78,21 @@ public class BigPlayerController : NetworkBehaviour
 
              if ((Input.GetKey("d") || (CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") > 0)) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
              {
-                 player.velocity = new Vector2(3* CrossPlatformInputManager.GetAxis("bigPlayerHorizontal"), upvel);
+                 player.velocity = new Vector2(3, upvel);
              }
 
              else if (t == 0 && (Input.GetKey("d") || (CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") > 0.7f)) && this.GetComponent<CollisionController>().isTouchingFloor == 0)
              {
-                 player.AddForce(new Vector2(150 - 15 * 9 * l, 0));
+                 player.AddForce(new Vector2(200 - 20 * 9 * l, 0));
                  t = 1;
              }
              else if (t == 0 && (Input.GetKey("a") || CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") < -0.7f) && this.GetComponent<CollisionController>().isTouchingFloor == 0)
              {
-                 player.AddForce(new Vector2(-150 + 15 * 9 * l, 0));
+                 player.AddForce(new Vector2(-200 + 20 * 9 * l, 0));
                  t = 1;
              }
              else if ((Input.GetKey("a") || CrossPlatformInputManager.GetAxis("bigPlayerHorizontal") < 0) && this.GetComponent<CollisionController>().isTouchingFloor == 1)
-                 player.velocity = new Vector2(3* CrossPlatformInputManager.GetAxis("bigPlayerHorizontal"), upvel);
+                 player.velocity = new Vector2(-3, upvel);
 
              }
 

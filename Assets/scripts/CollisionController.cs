@@ -22,6 +22,7 @@ public class CollisionController : MonoBehaviour {
 
     int breakdooraudio;
     int dooraudio;
+    bool failWindowShow;
 
     void Start () {
         attribute = 0;
@@ -29,6 +30,7 @@ public class CollisionController : MonoBehaviour {
         portalPosition = new List<Vector3>();
         breakdooraudio = 0;
         dooraudio = 0;
+        failWindowShow = false;
 
         for(int j = 0; j < portal.Length; j++)
         {
@@ -116,13 +118,15 @@ public class CollisionController : MonoBehaviour {
             {
                 if(obj.name == portal[1].name)
                 {
-                    this.gameObject.transform.position = portalPosition[2] + new Vector3(-1,-portal[2].transform.localScale.y/2,0);
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                    gameObject.transform.position = portalPosition[2] + new Vector3(-1.5f,-portal[2].transform.localScale.y/2,0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
                 else if(obj.name == portal[2].name)
                 {
-                    this.gameObject.transform.position = portalPosition[1] + new Vector3(1, -portal[1].transform.localScale.y / 2, 0);
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                    gameObject.transform.position = portalPosition[1] + new Vector3(1.5f, -portal[1].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
@@ -131,13 +135,15 @@ public class CollisionController : MonoBehaviour {
             {
                 if (obj.name == portal[0].name)
                 {
-                    this.gameObject.transform.position = portalPosition[2] + new Vector3(-1, -portal[2].transform.localScale.y / 2, 0);
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                    gameObject.transform.position = portalPosition[2] + new Vector3(-1.5f, -portal[2].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
                 else if (obj.name == portal[2].name)
                 {
-                    this.gameObject.transform.position = portalPosition[0] + new Vector3(-1, -portal[0].transform.localScale.y / 2, 0);
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                    gameObject.transform.position = portalPosition[0] + new Vector3(-1.5f, -portal[0].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
@@ -146,36 +152,39 @@ public class CollisionController : MonoBehaviour {
             {
                 if (obj.name == portal[0].name)
                 {
-                    this.gameObject.transform.position = portalPosition[1] + new Vector3(1, -portal[1].transform.localScale.y / 2, 0);
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                    gameObject.transform.position = portalPosition[1] + new Vector3(1.5f, -portal[1].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
                 else if (obj.name == portal[1].name)
                 {
-                    this.gameObject.transform.position = portalPosition[0] + new Vector3(-1, -portal[0].transform.localScale.y / 2, 0);
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                    gameObject.transform.position = portalPosition[0] + new Vector3(-1.5f, -portal[0].transform.localScale.y / 2, 0);
                     GetComponent<AudioSource>().clip = aud[2];
                     GetComponent<AudioSource>().Play();
                 }
             }
-            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            
         }
         else if(SceneManager.GetActiveScene().name == "Lv2.8")
         {
             if(obj.name == portal[0].name)
             {
                 isInPortal = true;
-                this.gameObject.transform.position = portalPosition[1] + new Vector3(1, -portal[1].transform.localScale.y / 2, 0);
+                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                gameObject.transform.position = portalPosition[1] + new Vector3(1.5f, -portal[1].transform.localScale.y / 2, 0);
                 GetComponent<AudioSource>().clip = aud[2];
                 GetComponent<AudioSource>().Play();
             }
             else if (obj.name == portal[1].name)
             {
                 isInPortal = true;
-                this.gameObject.transform.position = portalPosition[0] + new Vector3(-1, -portal[0].transform.localScale.y / 2, 0);
+                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                gameObject.transform.position = portalPosition[0] + new Vector3(-1.5f, -portal[0].transform.localScale.y / 2, 0);
                 GetComponent<AudioSource>().clip = aud[2];
                 GetComponent<AudioSource>().Play();
             }
-            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
 
     }
@@ -261,7 +270,7 @@ public class CollisionController : MonoBehaviour {
                 coll.gameObject.GetComponent<CollisionController>().attribute = 0;
             }
 
-            if (GetComponent<Rigidbody2D>().velocity.y > 0.2f && transform.position.y<coll.transform.position.y)
+            if (GetComponent<Rigidbody2D>().velocity.y > 0.1f && transform.position.y<coll.transform.position.y)
             {
                 Debug.Log("crash");
                 if (Regex.IsMatch(coll.gameObject.name, RegexStr10))
@@ -273,7 +282,7 @@ public class CollisionController : MonoBehaviour {
                 else if(Regex.IsMatch(coll.gameObject.name, RegexStr9))
                 {
                     if(GetComponent<Rigidbody2D>().velocity.y * 500<600)
-                        coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x*20,GetComponent<Rigidbody2D>().velocity.y*500));
+                        coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x*20,GetComponent<Rigidbody2D>().velocity.y*600));
                     else
                         coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, 600));
                     Debug.Log("bigcrash");
@@ -333,7 +342,7 @@ public class CollisionController : MonoBehaviour {
 
     void OnCollisionStay2D(Collision2D coll)
     {
-        if(coll.gameObject.name != "BigPlayer" && coll.gameObject.name != "SmallPlayer" && coll.gameObject.name != "background")
+        if( coll.gameObject.name != "background")
             isTouchingFloor = 1;
 
         for(int i = 0 ; i<Trigger.Length ; i++)
@@ -425,5 +434,34 @@ public class CollisionController : MonoBehaviour {
 
     }
 
-    
+    void OnBecameInvisible()
+    {
+        failWindowShow = true;
+    }
+
+    void OnGUI()
+    {
+        if(failWindowShow)
+            GUI.Window(1, new Rect(0, 0, Screen.width, Screen.height), FailWindow, "Fail");
+    }
+    void FailWindow(int WindowID)
+    {
+        string levelName = SceneManager.GetActiveScene().name;
+        Time.timeScale = 0;
+        //Debug.Log("pause");
+        if (GUI.Button(new Rect(Screen.width / 3, Screen.height * 3 / 5, Screen.width * 2 / 5, Screen.height / 5), "back"))
+        {
+            Time.timeScale = 1.0f;
+            SceneManager.LoadScene("Chapter");
+         
+        }
+        else if (GUI.Button(new Rect(Screen.width * 3 / 8, Screen.height * 0.35f, Screen.width * 0.31f, Screen.height / 5), "restart"))
+        {
+            if (!MainMenuButton.mode)
+                SceneManager.LoadScene(levelName);
+        }
+
+    }
+
+
 }
