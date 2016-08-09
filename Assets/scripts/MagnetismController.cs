@@ -43,7 +43,7 @@ public class MagnetismController : MonoBehaviour {
                 if (GameObject.Find(ball[i].name).GetComponent<MagnetismController>().magnetism != 0)
                 {
                     disVector[i] = GameObject.Find(ball[i].name).transform.position - this.gameObject.transform.position;
-                    forceVector[i] = disVector[i].normalized * 30 / disVector[i].magnitude;
+                    forceVector[i] = disVector[i].normalized * 50 / disVector[i].magnitude;
                     if (GameObject.Find(ball[i].name).GetComponent<MagnetismController>().magnetism != magnetism)
                         rb.AddForce(forceVector[i]);
                     else

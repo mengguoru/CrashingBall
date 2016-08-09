@@ -281,7 +281,7 @@ public class CollisionController : MonoBehaviour {
                 coll.gameObject.GetComponent<CollisionController>().attribute = 0;
             }
 
-            if (GetComponent<Rigidbody2D>().velocity.y > 0.1f && transform.position.y<coll.transform.position.y)
+            if (GetComponent<Rigidbody2D>().velocity.y > 0.1f && transform.position.y<coll.transform.position.y && GetComponent<MagnetismController>().magnetism == 0 && MagnetismController.trick == false)
             {
                 Debug.Log("crash");
                 if (Regex.IsMatch(coll.gameObject.name, RegexStr10))

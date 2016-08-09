@@ -39,7 +39,7 @@ public class SmallPlayerController : NetworkBehaviour {
         t = 0;
         u = 0;
         upvel = 0;
-        radius = 0.8f;
+        radius = 1.2f;
         maxRadius = 5;
         angle = 0;
         speed = 1;
