@@ -137,7 +137,7 @@ public class GameController : MonoBehaviour {
         MainMenuButton.hadRegulateSlider = 1;
         VolumnController.volumn[0] = GUI.HorizontalSlider(new Rect(Screen.width * 0.4f, Screen.height * 0.38f, Screen.width *8/35, Screen.width / 35), VolumnController.volumn[0], 0.0f, 1.0f, slider, thumb);
          VolumnController.volumn[1] = GUI.HorizontalSlider(new Rect(Screen.width * 0.4f, Screen.height /2, Screen.width *8 / 35, Screen.width / 35), VolumnController.volumn[1], 0.0f, 1.0f, slider, thumb);
-        if(GUI.Button(new Rect(Screen.width / 3, Screen.height*0.55f, Screen.width * 2 / 5, Screen.width / 7), "", back))
+        if(GUI.Button(new Rect(Screen.width / 3, Screen.height*0.55f, Screen.width * 2 / 5, Screen.height / 5), "", back))
         {
             pausewindowShow = true;
             volumnwindowShow = false;
