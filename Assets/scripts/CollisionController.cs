@@ -18,6 +18,9 @@ public class CollisionController : MonoBehaviour {
     public AudioClip[] aud;
     public AudioClip[] laseraud;
     public AudioClip success;
+    public GUIStyle restart;
+    public GUIStyle back;
+    public GUIStyle fail;
 
     int breakdooraudio;
     int dooraudio;
@@ -459,20 +462,20 @@ public class CollisionController : MonoBehaviour {
     void OnGUI()
     {
         if(failWindowShow)
-            GUI.Window(1, new Rect(0, 0, Screen.width, Screen.height), FailWindow, "Fail");
+            GUI.Window(1, new Rect(0, 0, Screen.width, Screen.height), FailWindow, "",fail);
     }
     void FailWindow(int WindowID)
     {
         string levelName = SceneManager.GetActiveScene().name;
         Time.timeScale = 0;
         //Debug.Log("pause");
-        if (GUI.Button(new Rect(Screen.width / 3, Screen.height * 3 / 5, Screen.width * 2 / 5, Screen.height / 5), "back"))
+        if (GUI.Button(new Rect(Screen.width / 3, Screen.height * 0.5f, Screen.width * 2 / 5, Screen.height / 5), "",back))
         {
             Time.timeScale = 1.0f;
             SceneManager.LoadScene("Chapter");
          
         }
-        else if (GUI.Button(new Rect(Screen.width * 3 / 8, Screen.height * 0.35f, Screen.width * 0.31f, Screen.height / 5), "restart"))
+        else if (GUI.Button(new Rect(Screen.width * 3 / 8, Screen.height * 0.25f, Screen.width * 0.31f, Screen.height / 5), "",restart))
         {
             if (!MainMenuButton.mode)
                 SceneManager.LoadScene(levelName);
