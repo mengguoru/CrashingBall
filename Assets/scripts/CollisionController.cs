@@ -18,7 +18,6 @@ public class CollisionController : MonoBehaviour {
     public AudioClip[] aud;
     public AudioClip[] laseraud;
     public AudioClip success;
-    public bool isInPortal;
 
     int breakdooraudio;
     int dooraudio;
@@ -182,7 +181,7 @@ public class CollisionController : MonoBehaviour {
         {
             if(obj.name == portal[0].name)
             {
-                isInPortal = true;
+                MagnetismController.trick = false;
                 gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 gameObject.transform.position = portalPosition[1] + new Vector3(1.5f, -portal[1].transform.localScale.y / 2, 0);
                 GetComponent<AudioSource>().clip = aud[2];
@@ -190,7 +189,7 @@ public class CollisionController : MonoBehaviour {
             }
             else if (obj.name == portal[1].name)
             {
-                isInPortal = true;
+                MagnetismController.trick = false;
                 gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 gameObject.transform.position = portalPosition[0] + new Vector3(-1.5f, -portal[0].transform.localScale.y / 2, 0);
                 GetComponent<AudioSource>().clip = aud[2];
@@ -242,6 +241,7 @@ public class CollisionController : MonoBehaviour {
         string RegexStr8 = @"^rope[\w\W]*";
         string RegexStr9 = @"^BigPlayer[\w\W]*";
         string RegexStr10 = @"^SmallPlayer[\w\W]*";
+        string RegexStr11 = @"^Lv2.[\w\W]*";
 
         //与冰火地形碰撞
         if (Regex.IsMatch(coll.gameObject.name, RegexStr4) && attribute == 0)//获得冰属性
@@ -281,24 +281,27 @@ public class CollisionController : MonoBehaviour {
                 coll.gameObject.GetComponent<CollisionController>().attribute = 0;
             }
 
-            if (GetComponent<Rigidbody2D>().velocity.y > 0.1f && transform.position.y<coll.transform.position.y && GetComponent<MagnetismController>().magnetism == 0 && MagnetismController.trick == false)
+            if (GetComponent<Rigidbody2D>().velocity.y > 0.1f && transform.position.y<coll.transform.position.y)
             {
-                Debug.Log("crash");
-                if (Regex.IsMatch(coll.gameObject.name, RegexStr10))
+                if((Regex.IsMatch(SceneManager.GetActiveScene().name,RegexStr11) && GetComponent<MagnetismController>().magnetism == 0 && MagnetismController.trick == false) || !Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr11))
                 {
-                    coll.gameObject.GetComponent<Rigidbody2D>().AddForce(GetComponent<Rigidbody2D>().velocity*25);
-                    Debug.Log("smallcrash");
+                    Debug.Log("crash");
+                    if (Regex.IsMatch(coll.gameObject.name, RegexStr10))
+                    {
+                        coll.gameObject.GetComponent<Rigidbody2D>().AddForce(GetComponent<Rigidbody2D>().velocity * 25);
+                        Debug.Log("smallcrash");
+                    }
+
+                    else if (Regex.IsMatch(coll.gameObject.name, RegexStr9))
+                    {
+                        if (GetComponent<Rigidbody2D>().velocity.y * 500 < 600)
+                            coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, GetComponent<Rigidbody2D>().velocity.y * 600));
+                        else
+                            coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, 600));
+                        Debug.Log("bigcrash");
+                    }
                 }
-                   
-                else if(Regex.IsMatch(coll.gameObject.name, RegexStr9))
-                {
-                    if(GetComponent<Rigidbody2D>().velocity.y * 500<600)
-                        coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x*20,GetComponent<Rigidbody2D>().velocity.y*600));
-                    else
-                        coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, 600));
-                    Debug.Log("bigcrash");
-                }
-                    
+ 
             }
         }
 
@@ -318,7 +321,7 @@ public class CollisionController : MonoBehaviour {
         else if (Regex.IsMatch(coll.gameObject.name, RegexStr3) && attribute == 0)//无属性门
         {
 
-                if (SceneManager.GetActiveScene().name == "Lv1.1" || SceneManager.GetActiveScene().name == "Lv1.8")
+                if (SceneManager.GetActiveScene().name == "Lv1.1" || SceneManager.GetActiveScene().name == "Lv1.8" || SceneManager.GetActiveScene().name == "Trial1.3")
                 {
                     if (Regex.IsMatch(this.gameObject.name, RegexStr9))
                         Destroy(coll.gameObject);
@@ -447,7 +450,10 @@ public class CollisionController : MonoBehaviour {
 
     void OnBecameInvisible()
     {
-        failWindowShow = true;
+        string RegexStr1 = @"^BigPlayer[\w\W]*";
+        string RegexStr2 = @"^SmallPlayer[\w\W]*";
+        if(Regex.IsMatch(gameObject.name,RegexStr1) || Regex.IsMatch(gameObject.name, RegexStr2))
+            failWindowShow = true;
     }
 
     void OnGUI()

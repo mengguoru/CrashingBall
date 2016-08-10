@@ -50,18 +50,18 @@ public class SmallPlayerController : NetworkBehaviour {
         // Debug.Log(MagnetismController.trick);
        
         if (canControl) {
-            if (MagnetismController.trick/* && !MainMenuButton.mode)||(gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode) */&& !this.gameObject.GetComponent<CollisionController>().isInPortal)
+            if (MagnetismController.trick/* && !MainMenuButton.mode)||(gameObject.GetComponent<MagnetismController>().contrick && MainMenuButton.mode) */ /*&& !gameObject.GetComponent<CollisionController>().isInPortal*/)
             {
                 //Animator anim = NS.GetComponent<Animator>();
                 //AnimatorStateInfo stateinfo = anim.GetCurrentAnimatorStateInfo(0);
                 this.gameObject.transform.position = GameObject.Find(BigPlayer.name).transform.position + new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle), 0);
-                if (Input.GetKey(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.5)
+                if (Input.GetKey(KeyCode.UpArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") > 0.5 && radius >= 0.25)
                 {
-                    radius += 0.01f;
+                    radius += 0.02f;
                 }
-                else if (Input.GetKey(KeyCode.DownArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") < -0.5 && radius <= maxRadius)
+                else if (Input.GetKey(KeyCode.DownArrow) || CrossPlatformInputManager.GetAxis("smallPlayerVertical") < -0.5 && radius >= 0.25)
                 {
-                    radius -= 0.01f;
+                    radius -= 0.02f;
                 }
 
                 if (Input.GetKey(KeyCode.LeftArrow) || CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") < -0.4f)
@@ -102,7 +102,7 @@ public class SmallPlayerController : NetworkBehaviour {
 
                     }
                 }*/
-               
+                radius = 1.2f;
                 upvel = player.velocity.y;
                 if ((Input.GetKey(KeyCode.RightArrow) || (CrossPlatformInputManager.GetAxis("smallPlayerHorizontal") > 0)) && GetComponent<CollisionController>().isTouchingFloor == 1)
                 {
