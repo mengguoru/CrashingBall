@@ -9,6 +9,7 @@ public class CollisionController : MonoBehaviour {
     //public GameObject MainCamera;
     public int attribute;//1冰 2火 0无
     public int isTouchingFloor;
+    public bool inBorder;
     List<Vector3> portalPosition;
     public GameObject[] Trigger;
     public GameObject[] portal;
@@ -25,6 +26,7 @@ public class CollisionController : MonoBehaviour {
     int breakdooraudio;
     int dooraudio;
     bool failWindowShow;
+    bool rev;
 
     void Start () {
         attribute = 0;
@@ -33,6 +35,8 @@ public class CollisionController : MonoBehaviour {
         breakdooraudio = 0;
         dooraudio = 0;
         failWindowShow = false;
+        rev = false;
+        inBorder = false;
 
         for(int j = 0; j < portal.Length; j++)
         {
@@ -122,6 +126,29 @@ public class CollisionController : MonoBehaviour {
             }
 
         }
+       /* else if(obj.gameObject.name == "vborder")
+        {
+            float px = transform.position.x;
+            float pz = transform.position.z;
+            if(px<0)
+                transform.position = transform.position * (-1) + new Vector3(px * 2 - 1, 0, pz * 2);
+            else
+                transform.position = transform.position * (-1) + new Vector3(px * 2 + 1, 0, pz * 2);
+            GetComponent<Rigidbody2D>().velocity *= -1;
+            inBorder = true;
+        }
+
+        else if (obj.gameObject.name == "hborder")
+        {
+            float py = transform.position.y;
+            float pz = transform.position.z;
+            if(py<0)
+                transform.position = transform.position * (-1) + new Vector3(0, py * 2 - 1, pz * 2);
+            else
+                transform.position = transform.position * (-1) + new Vector3(0, py * 2 + 1, pz * 2);
+            GetComponent<Rigidbody2D>().velocity *= -1;
+            inBorder = true;
+        }*/
 
         if (SceneManager.GetActiveScene().name == "Lv1.4" || SceneManager.GetActiveScene().name == "Lv1.6"|| SceneManager.GetActiveScene().name == "Lv1.7" || SceneManager.GetActiveScene().name == "Trial1.7" || SceneManager.GetActiveScene().name == "Lv2.9")//小球进入传送门 
         {
@@ -202,6 +229,7 @@ public class CollisionController : MonoBehaviour {
 
     }
 
+
     void OnTriggerExit2D(Collider2D obj)
     {
         string RegexStr1 = @"^IceDoor[\w\W]*";
@@ -230,7 +258,6 @@ public class CollisionController : MonoBehaviour {
                 obj.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         }
 
-       
     }
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -245,6 +272,9 @@ public class CollisionController : MonoBehaviour {
         string RegexStr9 = @"^BigPlayer[\w\W]*";
         string RegexStr10 = @"^SmallPlayer[\w\W]*";
         string RegexStr11 = @"^Lv2.[\w\W]*";
+        string RegexStr12 = @"^Lv3.[\w\W]*";
+        string RegexStr13 = @"^vborder[\w\W]*";
+        string RegexStr14 = @"^hborder[\w\W]*";
 
         //与冰火地形碰撞
         if (Regex.IsMatch(coll.gameObject.name, RegexStr4) && attribute == 0)//获得冰属性
@@ -283,29 +313,59 @@ public class CollisionController : MonoBehaviour {
                 attribute = 0;
                 coll.gameObject.GetComponent<CollisionController>().attribute = 0;
             }
-
-            if (GetComponent<Rigidbody2D>().velocity.y > 0.1f && transform.position.y<coll.transform.position.y)
+            if (Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr12))
             {
-                if((Regex.IsMatch(SceneManager.GetActiveScene().name,RegexStr11) && GetComponent<MagnetismController>().magnetism == 0 && MagnetismController.trick == false) || !Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr11))
+                CheckFunc();
+            }
+            if (!rev)
+            {
+                if (GetComponent<Rigidbody2D>().velocity.y > 0.1f && transform.position.y < coll.transform.position.y)
                 {
-                    Debug.Log("crash");
-                    if (Regex.IsMatch(coll.gameObject.name, RegexStr10))
+                    if ((Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr11) && GetComponent<MagnetismController>().magnetism == 0 && MagnetismController.trick == false) || !Regex.IsMatch(SceneManager.GetActiveScene().name, RegexStr11))
                     {
-                        coll.gameObject.GetComponent<Rigidbody2D>().AddForce(GetComponent<Rigidbody2D>().velocity * 25);
-                        Debug.Log("smallcrash");
+                        Debug.Log("crash");
+                        if (Regex.IsMatch(coll.gameObject.name, RegexStr10))
+                        {
+                            coll.gameObject.GetComponent<Rigidbody2D>().AddForce(GetComponent<Rigidbody2D>().velocity * 25);
+                            Debug.Log("smallcrash");
+                        }
+
+                        else if (Regex.IsMatch(coll.gameObject.name, RegexStr9))
+                        {
+                            if (GetComponent<Rigidbody2D>().velocity.y * 500 < 600)
+                                coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, GetComponent<Rigidbody2D>().velocity.y * 600));
+                            else
+                                coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, 600));
+                            Debug.Log("bigcrash");
+                        }
                     }
 
-                    else if (Regex.IsMatch(coll.gameObject.name, RegexStr9))
-                    {
-                        if (GetComponent<Rigidbody2D>().velocity.y * 500 < 600)
-                            coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, GetComponent<Rigidbody2D>().velocity.y * 600));
-                        else
-                            coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, 600));
-                        Debug.Log("bigcrash");
-                    }
                 }
- 
             }
+            else
+            {
+                if (GetComponent<Rigidbody2D>().velocity.y < -0.1f && transform.position.y > coll.transform.position.y)
+                {
+                       Debug.Log("crash");
+                       if (Regex.IsMatch(coll.gameObject.name, RegexStr10))
+                       {
+                           coll.gameObject.GetComponent<Rigidbody2D>().AddForce(GetComponent<Rigidbody2D>().velocity * 25);
+                           Debug.Log("smallcrash");
+                       }
+
+                       else if (Regex.IsMatch(coll.gameObject.name, RegexStr9))
+                       {
+                           if (GetComponent<Rigidbody2D>().velocity.y * 500 > -600)
+                               coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, GetComponent<Rigidbody2D>().velocity.y * 600));
+                           else
+                               coll.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Rigidbody2D>().velocity.x * 20, -600));
+                            Debug.Log("bigcrash");
+                       }
+                    
+
+                }
+            }
+            
         }
 
         //与门碰撞
@@ -354,15 +414,42 @@ public class CollisionController : MonoBehaviour {
            GetComponent<CircleCollider2D>().isTrigger = true;
         }
 
+        else if (Regex.IsMatch(coll.gameObject.name,RegexStr13))
+        {
+            float px = transform.position.x;
+            float pz = transform.position.z;
+            if (px < 0)
+                transform.position = transform.position * (-1) + new Vector3(px * 2 - 1, 0, pz * 2);
+            else
+                transform.position = transform.position * (-1) + new Vector3(px * 2 + 1, 0, pz * 2);
+            GetComponent<Rigidbody2D>().velocity *= -1;
+            inBorder = true;
+            Debug.Log("vborder");
+        }
+
+        else if (Regex.IsMatch(coll.gameObject.name, RegexStr14))
+        {
+            float py = transform.position.y;
+            float pz = transform.position.z;
+            if (py < 0)
+                transform.position = transform.position * (-1) + new Vector3(0, py * 2 - 1, pz * 2);
+            else
+                transform.position = transform.position * (-1) + new Vector3(0, py * 2 + 1, pz * 2);
+            GetComponent<Rigidbody2D>().velocity *= -1;
+            inBorder = true;
+            Debug.Log("hborder");
+        }
 
     }
 
     void OnCollisionStay2D(Collision2D coll)
     {
-        if( coll.gameObject.name != "background")
+        if (coll.gameObject.name != "background")
+        {
             isTouchingFloor = 1;
-
-        for(int i = 0 ; i<Trigger.Length ; i++)
+            inBorder = false;
+        }
+        for (int i = 0 ; i<Trigger.Length ; i++)
         {
             if (coll.gameObject.name == Trigger[i].name)
             {
@@ -481,6 +568,26 @@ public class CollisionController : MonoBehaviour {
                 SceneManager.LoadScene(levelName);
         }
 
+    }
+
+    void CheckFunc()
+    {
+        string RegexStr1 = @"^BigPlayer[\w\W]*";
+        string RegexStr2 = @"^SmallPlayer[\w\W]*";
+        if (Regex.IsMatch(gameObject.name, RegexStr1))
+        {
+            if (GetComponent<BigPlayerController>().isTurnover)
+                rev = true;
+            else
+                rev = false;
+        }
+        else if (Regex.IsMatch(gameObject.name, RegexStr2))
+        {
+            if (GetComponent<SmallPlayerController>().isTurnover)
+                rev = true;
+            else
+                rev = false;
+        }
     }
 
 

@@ -3,8 +3,11 @@ using System.Collections;
 
 public class SpaceTransController : MonoBehaviour {
 
-	void Start () {
-        Invoke("Turnover", 5.0f);
+    public bool control;
+
+    void Start () {
+        control = false;
+        Invoke("Turnover",1.0f);
     }
 	
 	void Update () {
@@ -22,5 +25,6 @@ public class SpaceTransController : MonoBehaviour {
         bg4.transform.position = bg2Pos;
         bg2.transform.Rotate(new Vector3(0, 0, 180));
         bg4.transform.Rotate(new Vector3(0, 0, 180));
+        control = true;
     }
 }
