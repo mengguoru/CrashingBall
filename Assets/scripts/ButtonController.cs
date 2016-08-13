@@ -9,7 +9,7 @@ using System;
 using UnityEngine.Networking;
 
 public class ButtonController : MonoBehaviour {
-    List<int> levelStatus = new List<int>();
+    //List<int> levelStatus = new List<int>();
     List<string> arr = new List<string>();
     public Sprite[] locked;
     public Sprite[] unlocked;
@@ -67,25 +67,36 @@ public class ButtonController : MonoBehaviour {
 
     void Start()
     {
+        int j,k;
         Time.timeScale = 1.0f;
-        //LoadXml();
-        /*arr = LoadFile(Application.persistentDataPath, "data1.txt");
-        for(int i = 0; i < arr.Count; i++)
+        arr = LoadFile(Application.persistentDataPath, "data1.txt");
+        for(j = 0; j < 8; j++)//第一章前八关
         {
-            Debug.Log("lv"+arr[i]);
-            levelStatus.Add(int.Parse(arr[i]));
-            Debug.Log(levelStatus[i]);
+            if (arr[j] == "0")
+                break;
         }
-        Time.timeScale = 1.0f;
-        string[] chap = SceneManager.GetActiveScene().name.Split('r');
-        int chapterNum = int.Parse(chap[1]);
-        for(int i = 0; i < button.Length; i++)
+        if(j == 8)//第一章前八关全部通过
         {
-            if (levelStatus[(chapterNum - 1) * 9 + i] == 0)
-                button[i].GetComponent<Button>().image.sprite = unlocked[i];
-            else
-                button[i].GetComponent<Button>().image.sprite = locked[i];
-        }*/
+            button[0].GetComponent<Button>().image.sprite = unlocked[0];
+        }
+        else
+        {
+            button[0].GetComponent<Button>().image.sprite = locked[0];
+        }
+
+        for (k = 9; k < 17; k++)//第二章前八关
+        {
+            if (arr[k] == "0")
+                break;
+        }
+        if (k == 8)//第二章前八关全部通过
+        {
+            button[1].GetComponent<Button>().image.sprite = unlocked[1];
+        }
+        else
+        {
+            button[1].GetComponent<Button>().image.sprite = locked[1];
+        }
     }
 
     public void OnBackBtnClick() {
@@ -96,14 +107,27 @@ public class ButtonController : MonoBehaviour {
     public void OnLevelChooseBtnClick(GameObject obj)
     {
         string levelName = obj.name;
-        int chapter = levelName[2] - 48;//1 2 3
-        int level = levelName[4] - 48;//1 2 3 ...9
-        int index = (chapter - 1) * 9 + level - 1;
-        //if (levelStatus[index] == 0)
-        //{
+        if (obj.name != "Lv1.9" || obj.name != "Lv2.9")
+        {
             GameController.nextLevelName = levelName;
             SceneManager.LoadScene("CutScene");
-       // }
+        }
+        else if(obj.name == "Lv1.9")
+        {
+            if(arr[8] == "1")
+            {
+                GameController.nextLevelName = levelName;
+                SceneManager.LoadScene("CutScene");
+            }
+        }
+        else if(obj.name == "Lv2.9")
+        {
+            if (arr[17] == "1")
+            {
+                GameController.nextLevelName = levelName;
+                SceneManager.LoadScene("CutScene");
+            }
+        }
       //  else
            // Debug.Log("还没通关哟");
     }

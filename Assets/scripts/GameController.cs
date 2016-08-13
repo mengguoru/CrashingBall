@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
     public static string nextLevelName;
     bool pausewindowShow;
     bool volumnwindowShow;
+    bool winShow;
     bool horiz;
     public GUIStyle pause;
     public GUIStyle resume;
@@ -23,6 +24,9 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
+        pausewindowShow = false;
+        volumnwindowShow = false;
+        winShow = false;
         levelName = SceneManager.GetActiveScene().name;
         if(levelName != "CutScene" && levelName != "Trial1.8")
         {
@@ -41,7 +45,7 @@ public class GameController : MonoBehaviour {
                     nextLevelName = "Lv" + chapter.ToString() + "." + (level + 1).ToString();
                 else
                 {
-                    if (chapter == 1)
+                    if (chapter == 1 || chapter == 2)
                         nextLevelName = "Lv" + (chapter + 1).ToString() + "." + (1).ToString();
                     else
                         nextLevelName = "OverAnimation";
@@ -71,8 +75,9 @@ public class GameController : MonoBehaviour {
                     int chapter = nextLevelName[2] - 48;//1 2 3
                     int level = nextLevelName[4] - 48;//1 2 3 ...9
                     int index = (chapter - 1) * 9 + level ;
-                    EditFile(index, "0", Application.persistentDataPath+"/data1.txt");
-                    SceneManager.LoadScene("CutScene");
+                    //EditFile(index, "0", Application.persistentDataPath+"/data1.txt");
+                    winShow = true;
+                    //SceneManager.LoadScene("CutScene");
                 }
                 else
                 {
@@ -112,26 +117,23 @@ public class GameController : MonoBehaviour {
         sw.Close();
         fs1.Close();
     }
-    /*void updateXml()
-    {
-        string path = Application.persistentDataPath + "/data.xml";
-        if (File.Exists(path))
-        {
-            XmlDocument xml = new XmlDocument();
-            xml.Load(path);
-            XmlNodeList xmlNodeList = xml.SelectSingleNode("level").ChildNodes;
-            foreach(XmlElement xl in xmlNodeList)
-            {
-                if (xl.GetAttribute("name") == nextLevelName)
-                {
-                    xl.InnerText = condition.ToString();
-                }
-            }
-            xml.Save(path);
-        }
-       
-    }*/
 
+    void WinWindow(int WindwoID)
+    {
+        Time.timeScale = 0;
+        
+        if (GUI.Button(new Rect(Screen.width / 3, Screen.height * 3 / 5, Screen.width * 2 / 5, Screen.height / 5), "", back))
+        {
+            Time.timeScale = 1.0f;
+            if (!MainMenuButton.mode)
+               SceneManager.LoadScene("Chapter");
+        }
+        else if (GUI.Button(new Rect(Screen.width / 3, Screen.height / 5, Screen.width * 0.35f, Screen.height / 5), "next"))
+        {
+            SceneManager.LoadScene("CutScene");
+            //Time.timeScale = 1.0f;
+        }
+    }
     void VolumnWindow(int WindowID)
     {
         MainMenuButton.hadRegulateSlider = 1;
@@ -183,14 +185,12 @@ public class GameController : MonoBehaviour {
     {
         if (levelName != "CutScene")
         {
-           // if (Input.GetKeyDown(KeyCode.Space))
-            //{
-              //  pausewindowShow = true;
-            //}
             if (pausewindowShow)
                 GUI.Window(1, new Rect(0, 0, Screen.width, Screen.height), PauseWindow, "",pause);
             if(volumnwindowShow)
                 GUI.Window(2, new Rect(0, 0, Screen.width, Screen.height), VolumnWindow, "", volumn);
+            if (winShow)
+                GUI.Window(3, new Rect(0, 0, Screen.width, Screen.height), WinWindow, "");
         }
             
     }

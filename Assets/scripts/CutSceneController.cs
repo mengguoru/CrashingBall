@@ -10,6 +10,8 @@ public class CutSceneController : MonoBehaviour {
     {
         //net = GetComponent<NetworkManager>();
         //net.onlineScene = GameController.nextLevelName;
+        Time.timeScale = 1.0f;
+        //StartCoroutine(LoadNextScene());
         Invoke("Loading",1);
     }
 
