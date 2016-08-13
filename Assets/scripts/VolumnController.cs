@@ -37,7 +37,6 @@ public class VolumnController : MonoBehaviour {
             else
                 GameObject.Find("AudioManager").GetComponent<AudioSource>().volume = 0.5f;
             if (sound.Length > 0)
-                if (sound.Length > 0)
             {
                 for (int i = 0; i < sound.Length; i++)
                 {
