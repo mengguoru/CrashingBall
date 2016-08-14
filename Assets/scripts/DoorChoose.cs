@@ -9,7 +9,6 @@ public class DoorChoose : MonoBehaviour {
 
     public GameObject BigPlayer;
     public GameObject SmallPlayer;
-    public Button sure;
     public Text level;
     static string lvName;
     bool once;
@@ -80,7 +79,10 @@ public class DoorChoose : MonoBehaviour {
             once = false;
             //sure.GetComponent<Button>().onClick.AddListener(OnSureButtonClick);
         }
-        SceneManager.LoadScene("Lv3.9");
+        if (lvName == "10")
+            SceneManager.LoadScene("end");
+        else
+            SceneManager.LoadScene("Lv3.9");
         //once = true;
        // Debug.Log(level.GetComponent<Text>().text);
     }

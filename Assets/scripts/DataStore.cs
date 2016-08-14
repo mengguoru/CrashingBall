@@ -3,27 +3,21 @@ using System.Collections;
 using System.IO;
 
 public class DataStore : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
-        CreateFile(Application.persistentDataPath, "data1.txt", "0");
+    static bool hadcreated;
+	
+    // Use this for initialization
+	void Start ()
+    {
+        Debug.Log(hadcreated);
+        int i;
+        if (!hadcreated)
+        {
+            for (i = 0; i < 27; i++)
+            {
+                CreateFile(Application.persistentDataPath, "data.txt", "1");
+            }
+            hadcreated = true;
+        }
     }
 	
 	// Update is called once per frame

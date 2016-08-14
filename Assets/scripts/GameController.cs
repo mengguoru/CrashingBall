@@ -28,10 +28,10 @@ public class GameController : MonoBehaviour {
         volumnwindowShow = false;
         winShow = false;
         levelName = SceneManager.GetActiveScene().name;
-        if(levelName != "CutScene" && levelName != "Trial1.8")
+        Time.timeScale = 1.0f;
+        condition = 2;
+        if (levelName != "CutScene" && levelName != "Trial1.8" && levelName != "end")
         {
-            Time.timeScale = 1.0f;
-            condition = 2;
             string RegexStr = @"^Lv[\w\W]*";
             if(Regex.IsMatch(levelName, RegexStr))
             {
@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour {
                     int chapter = nextLevelName[2] - 48;//1 2 3
                     int level = nextLevelName[4] - 48;//1 2 3 ...9
                     int index = (chapter - 1) * 9 + level ;
-                    //EditFile(index, "0", Application.persistentDataPath+"/data1.txt");
+                    //EditFile(index, "0", Application.persistentDataPath+"/data.txt");
                     winShow = true;
                     //SceneManager.LoadScene("CutScene");
                 }

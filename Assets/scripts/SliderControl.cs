@@ -46,9 +46,13 @@ public class SliderControl : MonoBehaviour {
             mTargetValue = 1f;
         }*/
 
-        if(m_Scrollbar.value <= 0.5f)
+        if(m_Scrollbar.value <= 0.3f)
         {
             mTargetValue = 0;
+        }
+        else if(m_Scrollbar.value <= 0.7f)
+        {
+            mTargetValue = 0.5f;
         }
         else
         {

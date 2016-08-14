@@ -31,7 +31,7 @@ public class MainMenuButton : MonoBehaviour {
 
     public void OnQuitBtnClick()
     {
-        //DeleteFile(Application.persistentDataPath, "data1.txt");
+        DeleteFile(Application.persistentDataPath, "data.txt");
         Application.Quit();
     }
 
@@ -69,7 +69,10 @@ public class MainMenuButton : MonoBehaviour {
         mode = false;
     }
 
-
+    public void OnCollectBtnClick()
+    {
+        SceneManager.LoadScene("Collection");
+    }
     
     void DeleteFile(string path, string name)
     {

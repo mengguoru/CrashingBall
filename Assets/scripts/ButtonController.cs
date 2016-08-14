@@ -69,7 +69,7 @@ public class ButtonController : MonoBehaviour {
     {
         int j,k;
         Time.timeScale = 1.0f;
-        arr = LoadFile(Application.persistentDataPath, "data1.txt");
+        arr = LoadFile(Application.persistentDataPath, "data.txt");
         for(j = 0; j < 8; j++)//第一章前八关
         {
             if (arr[j] == "0")

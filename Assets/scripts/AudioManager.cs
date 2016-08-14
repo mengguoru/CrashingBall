@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour {
     public static AudioManager instance = null;
-    public AudioSource m_Aud;
-    public AudioClip bgm;
 
 	// Use this for initialization
 	void Start () {
@@ -22,10 +20,10 @@ public class AudioManager : MonoBehaviour {
         DontDestroyOnLoad(this.gameObject);
        
 
-        m_Aud = this.GetComponent<AudioSource>();
-        m_Aud.clip = bgm;
+       // m_Aud = this.GetComponent<AudioSource>();
+      //  m_Aud.clip = bgm;
 
-        m_Aud.Play();
+       // m_Aud.Play();
 	}
 	
 	// Update is called once per frame
