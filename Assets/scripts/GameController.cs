@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Text;
+using System.Collections.Generic;
+using System;
 
 public class GameController : MonoBehaviour {
     public int condition;
@@ -12,6 +14,8 @@ public class GameController : MonoBehaviour {
     bool volumnwindowShow;
     bool winShow;
     bool horiz;
+    public GUIStyle win;
+    public GUIStyle next;
     public GUIStyle pause;
     public GUIStyle resume;
     public GUIStyle restart;
@@ -20,7 +24,9 @@ public class GameController : MonoBehaviour {
     public GUIStyle volumn;
     public GUIStyle slider;
     public GUIStyle thumb;
-
+    List<string> arr = new List<string>();
+    int chapter;
+    int level;
 
     void Start()
     {
@@ -39,8 +45,8 @@ public class GameController : MonoBehaviour {
                 {
                     GameObject.Find("Canvas").transform.FindChild("ButtonDisconnect").gameObject.SetActive(false);
                 }
-                int chapter = levelName[2] - 48;//1 2 3
-                int level = levelName[4] - 48;//1 2 3 ...9
+                chapter = levelName[2] - 48;//1 2 3
+                level = levelName[4] - 48;//1 2 3 ...9
                 if (level != 9)
                     nextLevelName = "Lv" + chapter.ToString() + "." + (level + 1).ToString();
                 else
@@ -72,10 +78,8 @@ public class GameController : MonoBehaviour {
                 string RegexStr1 = @"^Lv[\w\W]*";
                 if (Regex.IsMatch(levelName, RegexStr1))
                 {
-                    int chapter = nextLevelName[2] - 48;//1 2 3
-                    int level = nextLevelName[4] - 48;//1 2 3 ...9
                     int index = (chapter - 1) * 9 + level ;
-                    //EditFile(index, "0", Application.persistentDataPath+"/data.txt");
+                    EditFile(index, "1", Application.persistentDataPath+"/data.txt");
                     winShow = true;
                     //SceneManager.LoadScene("CutScene");
                 }
@@ -118,19 +122,97 @@ public class GameController : MonoBehaviour {
         fs1.Close();
     }
 
+    List<string> LoadFile(string path, string name)
+    {
+        //使用流的形式读取
+        StreamReader sr = null;
+        try
+        {
+            sr = File.OpenText(path + "//" + name);
+        }
+        catch (Exception e)
+        {
+            //路径与名称未找到文件则直接返回空
+            return null;
+        }
+        string line;
+        List<string> arrlist = new List<string>();
+        while ((line = sr.ReadLine()) != null)
+        {
+            //一行一行的读取
+            //将每一行的内容存入数组链表容器中
+            arrlist.Add(line);
+        }
+        //关闭流
+        sr.Close();
+        //销毁流
+        sr.Dispose();
+        //将数组链表容器返回
+        return arrlist;
+    }
+
     void WinWindow(int WindwoID)
     {
         Time.timeScale = 0;
-        
+        arr = LoadFile(Application.persistentDataPath, "data.txt");
+        int index = (chapter - 1) * 9 + level -1;
+        if(index != 8 && index != 17 && index != 26)
+        {
+            GameObject.Find("piece").GetComponent<SpriteRenderer>().sortingOrder = 5;
+        }
         if (GUI.Button(new Rect(Screen.width / 3, Screen.height * 3 / 5, Screen.width * 2 / 5, Screen.height / 5), "", back))
         {
             Time.timeScale = 1.0f;
             if (!MainMenuButton.mode)
                SceneManager.LoadScene("Chapter");
         }
-        else if (GUI.Button(new Rect(Screen.width / 3, Screen.height / 5, Screen.width * 0.35f, Screen.height / 5), "next"))
+        else if (GUI.Button(new Rect(Screen.width / 3, Screen.height / 5, Screen.width * 0.35f, Screen.height / 5), "",next))
         {
-            SceneManager.LoadScene("CutScene");
+            if (nextLevelName == "Lv1.9")
+            {
+                int i;
+                for(i = 0; i < 8; i++)
+                {
+                    if (arr[i] != "1")
+                        break;
+                }
+                if(i == 8)
+                {
+                    SceneManager.LoadScene("CutScene");
+                }
+            }
+            else if (nextLevelName == "Lv2.9")
+            {
+                int i;
+                for (i = 9; i < 17; i++)
+                {
+                    if (arr[i] != "1")
+                        break;
+                }
+                if (i == 17)
+                {
+                    SceneManager.LoadScene("CutScene");
+                }
+            }
+            else if (nextLevelName == "Lv3.9")
+            {
+                int i;
+                for (i = 0; i < 26; i++)
+                {
+                    if (arr[i] != "1")
+                        break;
+                }
+                if (i == 26)
+                {
+                    SceneManager.LoadScene("CutScene");
+                }
+            }
+            else if(nextLevelName == "Lv2.1")
+            {
+                SceneManager.LoadScene("Chapter1End");
+            }
+            else
+                SceneManager.LoadScene("CutScene");
             //Time.timeScale = 1.0f;
         }
     }
@@ -190,7 +272,7 @@ public class GameController : MonoBehaviour {
             if(volumnwindowShow)
                 GUI.Window(2, new Rect(0, 0, Screen.width, Screen.height), VolumnWindow, "", volumn);
             if (winShow)
-                GUI.Window(3, new Rect(0, 0, Screen.width, Screen.height), WinWindow, "");
+                GUI.Window(3, new Rect(0, 0, Screen.width, Screen.height), WinWindow, "", win);
         }
             
     }

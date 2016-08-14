@@ -16,22 +16,6 @@ public class ButtonController : MonoBehaviour {
     public GameObject[] button;
     public static string conLevelName;
 
-   /* void LoadXml()
-    {
-        XmlDocument xml = new XmlDocument();
-        XmlReaderSettings set = new XmlReaderSettings();
-        set.IgnoreComments = true;
-        xml.Load(XmlReader.Create((Application.persistentDataPath + "/data.xml"), set));
-        XmlNodeList xmlNodeList = xml.SelectSingleNode("level").ChildNodes;
-
-        foreach (XmlElement xl in xmlNodeList)
-        {
-            levelStatus.Add(int.Parse(xl.InnerText));
-            Debug.Log(xl.InnerText);
-        }
-        for (int i = 0; i < levelStatus.Count; i++)
-            Debug.Log(levelStatus[i]);
-    }*/
     /**
    * path：读取文件的路径
    * name：读取文件的名称
@@ -67,7 +51,7 @@ public class ButtonController : MonoBehaviour {
 
     void Start()
     {
-        int j,k;
+        int j,k,t;
         Time.timeScale = 1.0f;
         arr = LoadFile(Application.persistentDataPath, "data.txt");
         for(j = 0; j < 8; j++)//第一章前八关
@@ -97,6 +81,20 @@ public class ButtonController : MonoBehaviour {
         {
             button[1].GetComponent<Button>().image.sprite = locked[1];
         }
+
+        for (t = 0; t < 26; t++)
+        {
+            if (arr[t] == "0")
+                break;
+        }
+        if (t == 26)//全部通过
+        {
+            button[2].GetComponent<Button>().image.sprite = unlocked[2];
+        }
+        else
+        {
+            button[2].GetComponent<Button>().image.sprite = locked[2];
+        }
     }
 
     public void OnBackBtnClick() {
@@ -107,20 +105,16 @@ public class ButtonController : MonoBehaviour {
     public void OnLevelChooseBtnClick(GameObject obj)
     {
         string levelName = obj.name;
-        if (obj.name != "Lv1.9" || obj.name != "Lv2.9")
+       
+        if (obj.name == "Lv1.9")
         {
-            GameController.nextLevelName = levelName;
-            SceneManager.LoadScene("CutScene");
-        }
-        else if(obj.name == "Lv1.9")
-        {
-            if(arr[8] == "1")
+            if (arr[8] == "1")
             {
                 GameController.nextLevelName = levelName;
                 SceneManager.LoadScene("CutScene");
             }
         }
-        else if(obj.name == "Lv2.9")
+        else if (obj.name == "Lv2.9")
         {
             if (arr[17] == "1")
             {
@@ -128,8 +122,26 @@ public class ButtonController : MonoBehaviour {
                 SceneManager.LoadScene("CutScene");
             }
         }
-      //  else
-           // Debug.Log("还没通关哟");
+        else if (obj.name == "Lv2.9")
+        {
+            if (arr[26] == "1")
+            {
+                GameController.nextLevelName = levelName;
+                SceneManager.LoadScene("CutScene");
+            }
+        }
+        else if (obj.name == "Lv2.1")
+        {
+            SceneManager.LoadScene("Chapter1End");
+        }
+        else
+        {
+            GameController.nextLevelName = levelName;
+            SceneManager.LoadScene("CutScene");
+        }
+
+        //  else
+        // Debug.Log("还没通关哟");
     }
 
     public void OnTrailChooseBtnClick(GameObject obj)

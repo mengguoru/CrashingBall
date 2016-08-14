@@ -12,7 +12,7 @@ public class DataStore : MonoBehaviour {
         int i;
         if (!hadcreated)
         {
-            for (i = 0; i < 27; i++)
+            for (i = 0; i < 27; i++)//1表示通关 0表示未通关
             {
                 CreateFile(Application.persistentDataPath, "data.txt", "1");
             }
