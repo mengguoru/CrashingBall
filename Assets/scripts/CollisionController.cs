@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class CollisionController : MonoBehaviour {
 
     //public GameObject MainCamera;
+    public static bool surprise;
     public int attribute;//1冰 2火 0无
     public int isTouchingFloor;
     public bool inBorder;
@@ -126,6 +127,11 @@ public class CollisionController : MonoBehaviour {
             }
 
         }
+        else if(obj.gameObject.name == "surprise")
+        {
+            Destroy(obj.gameObject);
+            surprise = true;
+        }
        /* else if(obj.gameObject.name == "vborder")
         {
             float px = transform.position.x;
@@ -237,13 +243,6 @@ public class CollisionController : MonoBehaviour {
         string RegexStr3 = @"^NoneDoor[\w\W]*";
 
         string RegexStr5 = @"^FireDoor[\w\W]*";
-
-        string RegexStr = @"^rope[\w\W]*";
-
-        if (Regex.IsMatch(obj.gameObject.name, RegexStr))
-        {
-           GetComponent<CircleCollider2D>().isTrigger = false;
-        }
 
         if (Regex.IsMatch(obj.gameObject.name, RegexStr1) && attribute == 1 && SceneManager.GetActiveScene().name != "Lv1.9")//冰门
         {

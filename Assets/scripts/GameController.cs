@@ -204,7 +204,10 @@ public class GameController : MonoBehaviour {
                 }
                 if (i == 26)
                 {
-                    SceneManager.LoadScene("CutScene");
+                    if (CollisionController.surprise)
+                        SceneManager.LoadScene("Tip");
+                    else
+                        SceneManager.LoadScene("CutScene");
                 }
             }
             else if(nextLevelName == "Lv2.1")
