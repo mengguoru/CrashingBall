@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CollectionController : MonoBehaviour {
 
@@ -20,8 +21,15 @@ public class CollectionController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         arr = LoadFile(Application.persistentDataPath, "data.txt");
+        for(int i = 0; i < arr.Count; i++)
+        {
+            Debug.Log("suipian"+arr[i]);
+        }
         show = new bool[3] { false, false, false };
         once = true;
+        GameObject.Find("ch1Btn").GetComponent<Button>().onClick.AddListener(OnCh1BtnClick);
+        GameObject.Find("ch2Btn").GetComponent<Button>().onClick.AddListener(OnCh2BtnClick);
+        GameObject.Find("ch3Btn").GetComponent<Button>().onClick.AddListener(OnCh3BtnClick);
     }
 	
 	// Update is called once per frame
@@ -59,16 +67,19 @@ public class CollectionController : MonoBehaviour {
     public void OnCh1BtnClick()
     {
         show[0] = true;
+        
     }
 
     public void OnCh2BtnClick()
     {
         show[1] = true;
+
     }
 
     public void OnCh3BtnClick()
     {
         show[2] = true;
+
     }
 
     public void OnBackBtnClick()
@@ -92,18 +103,21 @@ public class CollectionController : MonoBehaviour {
                 if (arr[i] == "1")
                 {
                     //render[i] = sp[i].GetComponent<SpriteRenderer>();
-                    piece[i] = Sprite.Create(ch1[i], new Rect(0, 0, Screen.height*3.3f, Screen.height*3.3f), new Vector2(0.5f, 0.5f));
+                    piece[i] = Sprite.Create(ch1[i], new Rect(0, 0, ch1[i].width, ch1[i].height), new Vector2(0.5f, 0.5f));
                     //render[i].sprite = piece[i];
                     Debug.Log("sprite");
                 }
                 else
                 {
-                    piece[i] = Sprite.Create(tp[0], new Rect(0, 0, Screen.height * 3.3f, Screen.height * 3.3f), new Vector2(0.5f, 0.5f));
+                    piece[i] = Sprite.Create(tp[0], new Rect(0, 0, tp[0].width, tp[0].height), new Vector2(0.5f, 0.5f));
                 }
                 render[i].sprite = piece[i];
             }
             once = false;
         }
+        GameObject.Find("ch1Btn").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("ch2Btn").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("ch3Btn").GetComponent<Button>().onClick.RemoveAllListeners();
         if (GUI.Button(new Rect(Screen.width * 0.7f, Screen.height * 3 / 5, Screen.width  / 3, Screen.height / 5), "", back))
         {
             once = true;
@@ -114,6 +128,9 @@ public class CollectionController : MonoBehaviour {
                 render[i].sprite = null;
                 Debug.Log("null");
             }
+            GameObject.Find("ch1Btn").GetComponent<Button>().onClick.AddListener(OnCh1BtnClick);
+            GameObject.Find("ch2Btn").GetComponent<Button>().onClick.AddListener(OnCh2BtnClick);
+            GameObject.Find("ch3Btn").GetComponent<Button>().onClick.AddListener(OnCh3BtnClick);
         }
 
     }
@@ -134,18 +151,21 @@ public class CollectionController : MonoBehaviour {
                 if (arr[i+9] == "1")
                 {
                     //render[i] = sp[i].GetComponent<SpriteRenderer>();
-                    piece[i] = Sprite.Create(ch2[i], new Rect(0, 0, Screen.height * 3.3f, Screen.height * 3.3f), new Vector2(0.5f, 0.5f));
+                    piece[i] = Sprite.Create(ch2[i], new Rect(0, 0, ch2[i].width, ch2[i].height), new Vector2(0.5f, 0.5f));
                     //render[i].sprite = piece[i];
                     Debug.Log("sprite");
                 }
                 else
                 {
-                    piece[i] = Sprite.Create(tp[1], new Rect(0, 0, Screen.height * 3.3f, Screen.height * 3.3f), new Vector2(0.5f, 0.5f));
+                    piece[i] = Sprite.Create(tp[1], new Rect(0, 0, tp[1].width, tp[1].height), new Vector2(0.5f, 0.5f));
                 }
                 render[i].sprite = piece[i];
             }
             once = false;
         }
+        GameObject.Find("ch1Btn").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("ch2Btn").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("ch3Btn").GetComponent<Button>().onClick.RemoveAllListeners();
         if (GUI.Button(new Rect(Screen.width *0.72f, Screen.height * 3 / 5, Screen.width /3, Screen.height / 5), "", back))
         {
             once = true;
@@ -156,6 +176,9 @@ public class CollectionController : MonoBehaviour {
                 render[i].sprite = null;
                 Debug.Log("null");
             }
+            GameObject.Find("ch1Btn").GetComponent<Button>().onClick.AddListener(OnCh1BtnClick);
+            GameObject.Find("ch2Btn").GetComponent<Button>().onClick.AddListener(OnCh2BtnClick);
+            GameObject.Find("ch3Btn").GetComponent<Button>().onClick.AddListener(OnCh3BtnClick);
         }
 
     }
@@ -176,18 +199,21 @@ public class CollectionController : MonoBehaviour {
                 if (arr[i + 18] == "1")
                 {
                     //render[i] = sp[i].GetComponent<SpriteRenderer>();
-                    piece[i] = Sprite.Create(ch3[i], new Rect(0, 0, Screen.height * 3.3f, Screen.height * 3.3f), new Vector2(0.5f, 0.5f));
+                    piece[i] = Sprite.Create(ch3[i], new Rect(0, 0, ch3[i].width, ch3[i].height), new Vector2(0.5f, 0.5f));
                     //render[i].sprite = piece[i];
                     Debug.Log("sprite");
                 }
                 else
                 {
-                    piece[i] = Sprite.Create(tp[0], new Rect(0, 0, Screen.height * 3.3f, Screen.height * 3.3f), new Vector2(0.5f, 0.5f));
+                    piece[i] = Sprite.Create(tp[0], new Rect(0, 0, tp[0].width, tp[0].height), new Vector2(0.5f, 0.5f));
                 }
                 render[i].sprite = piece[i];
             }
             once = false;
         }
+        GameObject.Find("ch1Btn").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("ch2Btn").GetComponent<Button>().onClick.RemoveAllListeners();
+        GameObject.Find("ch3Btn").GetComponent<Button>().onClick.RemoveAllListeners();
         if (GUI.Button(new Rect(Screen.width *0.7f, Screen.height * 3 / 5, Screen.width /3, Screen.height / 5), "", back))
         {
             once = true;
@@ -198,6 +224,9 @@ public class CollectionController : MonoBehaviour {
                 render[i].sprite = null;
                 Debug.Log("null");
             }
+            GameObject.Find("ch1Btn").GetComponent<Button>().onClick.AddListener(OnCh1BtnClick);
+            GameObject.Find("ch2Btn").GetComponent<Button>().onClick.AddListener(OnCh2BtnClick);
+            GameObject.Find("ch3Btn").GetComponent<Button>().onClick.AddListener(OnCh3BtnClick);
         }
 
     }

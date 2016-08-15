@@ -73,7 +73,7 @@ public class ButtonController : MonoBehaviour {
             if (arr[k] == "0")
                 break;
         }
-        if (k == 8)//第二章前八关全部通过
+        if (k == 17)//第二章前八关全部通过
         {
             button[1].GetComponent<Button>().image.sprite = unlocked[1];
         }
@@ -87,6 +87,7 @@ public class ButtonController : MonoBehaviour {
             if (arr[t] == "0")
                 break;
         }
+        Debug.Log(t);
         if (t == 26)//全部通过
         {
             button[2].GetComponent<Button>().image.sprite = unlocked[2];
@@ -108,7 +109,13 @@ public class ButtonController : MonoBehaviour {
        
         if (obj.name == "Lv1.9")
         {
-            if (arr[8] == "1")
+            int i;
+            for (i = 0; i < 8; i++)
+            {
+                if (arr[i] != "1")
+                    break;
+            }
+            if (i == 8)
             {
                 GameController.nextLevelName = levelName;
                 SceneManager.LoadScene("CutScene");
@@ -116,23 +123,46 @@ public class ButtonController : MonoBehaviour {
         }
         else if (obj.name == "Lv2.9")
         {
-            if (arr[17] == "1")
+            int i;
+            for (i = 9; i < 17; i++)
+            {
+                if (arr[i] != "1")
+                    break;
+            }
+            if (i == 17)
             {
                 GameController.nextLevelName = levelName;
                 SceneManager.LoadScene("CutScene");
             }
+           
         }
-        else if (obj.name == "Lv2.9")
+        else if (obj.name == "Lv3.9")
         {
-            if (arr[26] == "1")
+            int i;
+            for (i = 0; i < 26; i++)
             {
-                GameController.nextLevelName = levelName;
-                SceneManager.LoadScene("CutScene");
+                if (arr[i] != "1")
+                    break;
+            }
+            if (i == 26)
+            {
+                if (CollisionController.surprise)
+                {
+                    GameController.nextLevelName = levelName;
+                    SceneManager.LoadScene("Tip");
+                }
+                else
+                {
+                    GameController.nextLevelName = levelName;
+                    SceneManager.LoadScene("CutScene");
+                } 
             }
         }
         else if (obj.name == "Lv2.1")
         {
-            SceneManager.LoadScene("Chapter1End");
+            //Handheld.PlayFullScreenMovie("chapter1end.mp4", Color.black, FullScreenMovieControlMode.Full);
+            GameController.nextLevelName = levelName;
+            SceneManager.LoadScene("CutScene");
         }
         else
         {

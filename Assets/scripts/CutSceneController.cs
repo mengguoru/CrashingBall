@@ -12,7 +12,10 @@ public class CutSceneController : MonoBehaviour {
         //net.onlineScene = GameController.nextLevelName;
         Time.timeScale = 1.0f;
         //StartCoroutine(LoadNextScene());
-        Invoke("Loading",1);
+        if (SceneManager.GetActiveScene().name == "Tip")
+            Invoke("Loading", 5.0f);
+        else
+            Invoke("Loading",1.0f);
     }
 
     IEnumerator LoadNextScene()

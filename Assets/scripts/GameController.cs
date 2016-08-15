@@ -14,7 +14,8 @@ public class GameController : MonoBehaviour {
     bool volumnwindowShow;
     bool winShow;
     bool horiz;
-    public GUIStyle win;
+    public GUIStyle firstwin;
+    public GUIStyle won;
     public GUIStyle next;
     public GUIStyle pause;
     public GUIStyle resume;
@@ -34,6 +35,8 @@ public class GameController : MonoBehaviour {
         volumnwindowShow = false;
         winShow = false;
         levelName = SceneManager.GetActiveScene().name;
+        chapter = levelName[2] - 48;//1 2 3
+        level = levelName[4] - 48;//1 2 3 ...9
         Time.timeScale = 1.0f;
         condition = 2;
         if (levelName != "CutScene" && levelName != "Trial1.8" && levelName != "end")
@@ -45,16 +48,14 @@ public class GameController : MonoBehaviour {
                 {
                     GameObject.Find("Canvas").transform.FindChild("ButtonDisconnect").gameObject.SetActive(false);
                 }
-                chapter = levelName[2] - 48;//1 2 3
-                level = levelName[4] - 48;//1 2 3 ...9
                 if (level != 9)
                     nextLevelName = "Lv" + chapter.ToString() + "." + (level + 1).ToString();
                 else
                 {
-                    if (chapter == 1 || chapter == 2)
+                    if (chapter == 1 || chapter == 2)//Lv1.9 Lv2.9
                         nextLevelName = "Lv" + (chapter + 1).ToString() + "." + (1).ToString();
                     else
-                        nextLevelName = "OverAnimation";
+                        nextLevelName = "end";
                 }
                 Debug.Log(nextLevelName);
             }
@@ -78,8 +79,8 @@ public class GameController : MonoBehaviour {
                 string RegexStr1 = @"^Lv[\w\W]*";
                 if (Regex.IsMatch(levelName, RegexStr1))
                 {
-                    int index = (chapter - 1) * 9 + level ;
-                    EditFile(index, "1", Application.persistentDataPath+"/data.txt");
+                    //int index = (chapter - 1) * 9 + level ;
+                    //EditFile(index, "1", Application.persistentDataPath+"/data.txt");
                     winShow = true;
                     //SceneManager.LoadScene("CutScene");
                 }
@@ -102,17 +103,31 @@ public class GameController : MonoBehaviour {
         StreamReader sr = new StreamReader(fs, Encoding.GetEncoding("utf-8"));
         string line = sr.ReadLine();
         StringBuilder sb = new StringBuilder();
-        for (int i = 1; line != null; i++)
+        if(curLine == 1)
         {
-            sb.Append(line + "\r\n");
-            if (i != curLine - 1)
-                line = sr.ReadLine();
-            else
+            sb.Append(newLineValue + "\r\n");
+            line = sr.ReadLine();
+            for(int i = 1; line != null; i++)
             {
-                sr.ReadLine();
-                line = newLineValue;
+                sb.Append(line + "\r\n");
+                line = sr.ReadLine();
             }
         }
+        else
+        {
+            for (int i = 1; line != null; i++)
+            {
+                sb.Append(line + "\r\n");
+                if (i != curLine - 1)
+                    line = sr.ReadLine();
+                else
+                {
+                    sr.ReadLine();
+                    line = newLineValue;
+                }
+            }
+        }
+       
         sr.Close();
         fs.Close();
         FileStream fs1 = new FileStream(patch, FileMode.Open, FileAccess.Write);
@@ -154,20 +169,20 @@ public class GameController : MonoBehaviour {
     void WinWindow(int WindwoID)
     {
         Time.timeScale = 0;
-        arr = LoadFile(Application.persistentDataPath, "data.txt");
-        int index = (chapter - 1) * 9 + level -1;
-        if(index != 8 && index != 17 && index != 26)
+        int index = (chapter - 1) * 9 + level;
+        //EditFile(index, "1", Application.persistentDataPath + "//data.txt");
+        //arr = LoadFile(Application.persistentDataPath, "data.txt");
+        if (GUI.Button(new Rect(Screen.width / 3, Screen.height * 4 / 5, Screen.width * 2 / 5, Screen.height / 5), "", back))
         {
-            GameObject.Find("piece").GetComponent<SpriteRenderer>().sortingOrder = 5;
-        }
-        if (GUI.Button(new Rect(Screen.width / 3, Screen.height * 3 / 5, Screen.width * 2 / 5, Screen.height / 5), "", back))
-        {
+            EditFile(index, "1", Application.persistentDataPath + "//data.txt");
             Time.timeScale = 1.0f;
             if (!MainMenuButton.mode)
                SceneManager.LoadScene("Chapter");
         }
-        else if (GUI.Button(new Rect(Screen.width / 3, Screen.height / 5, Screen.width * 0.35f, Screen.height / 5), "",next))
+        else if (GUI.Button(new Rect(Screen.width / 3, Screen.height *0.3f, Screen.width * 0.35f, Screen.height/2), "",next))
         {
+            EditFile(index, "1", Application.persistentDataPath + "//data.txt");
+            arr = LoadFile(Application.persistentDataPath, "data.txt");
             if (nextLevelName == "Lv1.9")
             {
                 int i;
@@ -212,7 +227,8 @@ public class GameController : MonoBehaviour {
             }
             else if(nextLevelName == "Lv2.1")
             {
-                SceneManager.LoadScene("Chapter1End");
+                //Handheld.PlayFullScreenMovie("chapter1end.mp4", Color.black, FullScreenMovieControlMode.Full);
+                SceneManager.LoadScene("CutScene");
             }
             else
                 SceneManager.LoadScene("CutScene");
@@ -275,7 +291,21 @@ public class GameController : MonoBehaviour {
             if(volumnwindowShow)
                 GUI.Window(2, new Rect(0, 0, Screen.width, Screen.height), VolumnWindow, "", volumn);
             if (winShow)
-                GUI.Window(3, new Rect(0, 0, Screen.width, Screen.height), WinWindow, "", win);
+            {
+                    arr = LoadFile(Application.persistentDataPath, "data.txt");
+                    int index = (chapter - 1) * 9 + level - 1;
+                    Debug.Log("win" + arr[index]);
+                    if (arr[index] == "0")
+                    {
+                        GUI.Window(3, new Rect(0, 0, Screen.width, Screen.height), WinWindow, "", firstwin);
+                    }
+                    else
+                    {
+                        GUI.Window(3, new Rect(0, 0, Screen.width, Screen.height), WinWindow, "", won);
+                    }
+                
+
+            }
         }
             
     }

@@ -3,20 +3,18 @@ using System.Collections;
 using System.IO;
 
 public class DataStore : MonoBehaviour {
-    static bool hadcreated;
 	
     // Use this for initialization
 	void Start ()
     {
-        Debug.Log(hadcreated);
+        FileInfo t = new FileInfo(Application.persistentDataPath + "//data.txt");
         int i;
-        if (!hadcreated)
+        if (!t.Exists)
         {
             for (i = 0; i < 27; i++)//1表示通关 0表示未通关
             {
-                CreateFile(Application.persistentDataPath, "data.txt", "1");
+                CreateFile(Application.persistentDataPath, "data.txt", "0");
             }
-            hadcreated = true;
         }
     }
 	

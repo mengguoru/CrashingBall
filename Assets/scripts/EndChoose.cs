@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EndChoose : MonoBehaviour {
 
@@ -30,15 +31,18 @@ public class EndChoose : MonoBehaviour {
     {
         if (BigPlayer.GetComponent<DoorCollision>().num == 1 && SmallPlayer.GetComponent<DoorCollision>().num == 1)
         {
-           
+            Handheld.PlayFullScreenMovie("end1.avi", Color.black, FullScreenMovieControlMode.Full);
+            
         }
         else if (BigPlayer.GetComponent<DoorCollision>().num == 2 && SmallPlayer.GetComponent<DoorCollision>().num == 2)
         {
-           
+            Handheld.PlayFullScreenMovie("end2.mp4", Color.black, FullScreenMovieControlMode.Full);
         }
         else if (BigPlayer.GetComponent<DoorCollision>().num == 3 && SmallPlayer.GetComponent<DoorCollision>().num == 3)
         {
-            
+            Handheld.PlayFullScreenMovie("end3.mp4", Color.black, FullScreenMovieControlMode.Full);
         }
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
